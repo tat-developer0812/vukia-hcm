@@ -44,9 +44,9 @@ export default function TestDrivePage() {
 
           <div className="bg-gradient-to-r from-[#BB162B] to-[#8B0000] rounded-2xl p-6 text-white text-center">
             <p className="text-sm mb-2 opacity-90">Hoặc gọi ngay để đặt lịch</p>
-            <a href="tel:0962216351" className="flex items-center justify-center gap-2 text-2xl font-black">
+            <a href="tel:0931456204" className="flex items-center justify-center gap-2 text-2xl font-black">
               <Phone size={24} />
-              096.2216.351
+              0931.456.204
             </a>
           </div>
         </div>

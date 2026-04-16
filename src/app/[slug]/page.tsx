@@ -1,8 +1,9 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { Phone, CheckCircle, ChevronRight, ArrowLeft } from "lucide-react";
+import { CheckCircle, ChevronRight, ArrowLeft } from "lucide-react";
 import QuoteForm from "@/components/QuoteForm";
+import QuoteButton from "@/components/QuoteButton";
 import { cars, promotions } from "@/lib/data";
 
 export async function generateStaticParams() {
@@ -75,10 +76,7 @@ export default async function CarPage({ params }: { params: Promise<{ slug: stri
                     </p>
                   </div>
                   <div className="flex gap-3 mt-4">
-                    <a href="tel:0962216351"
-                      className="bg-[#BB162B] hover:bg-[#9a1022] text-white px-4 py-2.5 rounded-full font-bold text-sm flex items-center gap-2 transition-colors">
-                      <Phone size={14} /> Báo giá ngay
-                    </a>
+                    <QuoteButton carSlug={car.slug} />
                   </div>
                 </div>
               </div>

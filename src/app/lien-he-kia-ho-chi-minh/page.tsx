@@ -3,7 +3,7 @@ import QuoteForm from "@/components/QuoteForm";
 import { contact } from "@/lib/data";
 
 export const metadata = {
-  title: "Liên hệ KIA Hồ Chí Minh – 096.2216.351",
+  title: "Liên hệ KIA Hồ Chí Minh – 0931.456.204",
   description: "Liên hệ đại lý KIA HCM để nhận tư vấn và báo giá xe tốt nhất. Địa chỉ: 38 Chế Lan Viên, Tân Phú, TP.HCM",
 };
 

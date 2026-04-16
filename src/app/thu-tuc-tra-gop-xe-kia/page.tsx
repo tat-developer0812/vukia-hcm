@@ -86,9 +86,9 @@ export default function FinancingPage() {
                   </div>
                 ))}
               </div>
-              <a href="tel:0962216351"
+              <a href="tel:0931456204"
                 className="mt-5 flex items-center justify-center gap-2 bg-[#BB162B] hover:bg-[#9a1022] text-white py-3 rounded-full font-bold text-sm transition-colors">
-                <Phone size={16} /> 096.2216.351
+                <Phone size={16} /> 0931.456.204
               </a>
             </div>
           </div>

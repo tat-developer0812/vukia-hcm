@@ -3,11 +3,13 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X, Phone, ChevronDown } from "lucide-react";
 import { cars } from "@/lib/data";
+import { useModal } from "@/context/ModalContext";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [carMenuOpen, setCarMenuOpen] = useState(false);
+  const { openModal } = useModal();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -30,11 +32,11 @@ export default function Header() {
           {/* On mobile: full width centered; md+: right-aligned */}
           <div className="flex items-center gap-4 text-xs w-full md:w-auto justify-center md:justify-end">
             <a
-              href="tel:0962216351"
+              href="tel:0931456204"
               className="flex items-center gap-1.5 hover:text-[#BB162B] transition-colors"
             >
               <Phone size={13} />
-              <span className="font-semibold">096.2216.351</span>
+              <span className="font-semibold">0931.456.204</span>
             </a>
             <span className="text-gray-400">|</span>
             <span className="text-gray-300 hidden sm:block">7:30 – 21:00 · Thứ 2 – CN</span>
@@ -111,13 +113,13 @@ export default function Header() {
 
         {/* CTA button */}
         <div className="hidden lg:flex items-center gap-3">
-          <a
-            href="tel:0962216351"
+          <button
+            onClick={() => openModal()}
             className="flex items-center gap-2 bg-[#BB162B] text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-[#9a1022] transition-colors"
           >
             <Phone size={14} />
             Báo giá ngay
-          </a>
+          </button>
         </div>
 
         {/* Mobile hamburger */}
@@ -178,13 +180,13 @@ export default function Header() {
           >
             Liên hệ
           </Link>
-          <a
-            href="tel:0962216351"
-            className="mt-4 flex items-center justify-center gap-2 bg-[#BB162B] text-white px-4 py-3 rounded-full text-sm font-semibold"
+          <button
+            onClick={() => { setOpen(false); openModal(); }}
+            className="mt-4 w-full flex items-center justify-center gap-2 bg-[#BB162B] text-white px-4 py-3 rounded-full text-sm font-semibold"
           >
             <Phone size={14} />
-            Gọi ngay: 096.2216.351
-          </a>
+            Báo giá ngay
+          </button>
         </div>
       )}
     </header>

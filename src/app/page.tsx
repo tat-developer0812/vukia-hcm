@@ -13,8 +13,8 @@ export default function HomePage() {
       {/* Quick CTA bar */}
       <div className="bg-[#BB162B] text-white">
         <div className="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-center gap-6 text-sm font-medium">
-          <a href="tel:0962216351" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-            <Phone size={15} /> Gọi ngay: 096.2216.351
+          <a href="tel:0931456204" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+            <Phone size={15} /> Gọi ngay: 0931.456.204
           </a>
           <Link href="/dang-ky-lai-thu-xe-kia" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
             <Star size={15} /> Đăng ký lái thử miễn phí
@@ -159,7 +159,7 @@ export default function HomePage() {
                 <Phone className="text-[#BB162B] shrink-0" size={22} />
                 <div>
                   <p className="text-xs text-gray-400">Hotline tư vấn ({contact.consultant})</p>
-                  <a href="tel:0962216351" className="font-black text-2xl text-[#BB162B] hover:opacity-80 transition-opacity">
+                  <a href="tel:0931456204" className="font-black text-2xl text-[#BB162B] hover:opacity-80 transition-opacity">
                     {contact.hotline}
                   </a>
                 </div>

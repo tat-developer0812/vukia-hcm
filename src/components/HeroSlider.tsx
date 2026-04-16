@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight, Phone } from "lucide-react";
 import { cars } from "@/lib/data";
+import { useModal } from "@/context/ModalContext";
 
 const slides = [
   {
@@ -34,6 +35,7 @@ const slides = [
 
 export default function HeroSlider() {
   const [current, setCurrent] = useState(0);
+  const { openModal } = useModal();
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -98,13 +100,13 @@ export default function HeroSlider() {
               >
                 Xem chi tiết
               </Link>
-              <a
-                href="tel:0962216351"
+              <button
+                onClick={() => openModal(slide.car.slug)}
                 className="flex items-center gap-1.5 border border-white/70 text-white hover:bg-white hover:text-[#05141F] px-5 py-2.5 rounded-full font-bold text-sm transition-colors"
               >
                 <Phone size={13} />
                 Báo giá
-              </a>
+              </button>
             </div>
           </div>
         </div>

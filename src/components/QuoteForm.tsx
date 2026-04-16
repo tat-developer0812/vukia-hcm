@@ -2,46 +2,47 @@
 import { useState } from "react";
 import { Send, Phone } from "lucide-react";
 import { cars } from "@/lib/data";
+import Toast from "./Toast";
 
 interface QuoteFormProps {
   defaultCar?: string;
   compact?: boolean;
+  onSuccess?: () => void;
 }
 
-export default function QuoteForm({ defaultCar = "", compact = false }: QuoteFormProps) {
+export default function QuoteForm({ defaultCar = "", compact = false, onSuccess }: QuoteFormProps) {
   const [form, setForm] = useState({ name: "", phone: "", car: defaultCar, note: "" });
-  const [sent, setSent] = useState(false);
+  const [toast, setToast] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setSent(true);
-    setTimeout(() => setSent(false), 4000);
+    setToast(true);
     setForm({ name: "", phone: "", car: defaultCar, note: "" });
+    // If inside modal, close it after a short delay so toast is visible
+    if (onSuccess) {
+      setTimeout(onSuccess, 500);
+    }
   };
 
   return (
-    <div className={compact ? "" : "bg-white rounded-2xl shadow-xl p-6 border border-gray-100"}>
-      {!compact && (
-        <div className="mb-6">
-          <h3 className="text-xl font-bold text-[#05141F]">Nhận báo giá ưu đãi</h3>
-          <div className="w-10 h-0.5 bg-[#BB162B] mt-2" />
-          <p className="text-sm text-gray-500 mt-2">
-            Để lại thông tin, tư vấn viên sẽ liên hệ ngay!
-          </p>
-        </div>
+    <>
+      {toast && (
+        <Toast
+          message="Đã gửi thành công! Tư vấn viên Vũ sẽ liên hệ bạn sớm nhất."
+          onClose={() => setToast(false)}
+        />
       )}
-
-      {sent ? (
-        <div className="text-center py-6">
-          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
-            <svg className="w-8 h-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-            </svg>
+      <div className={compact ? "" : "bg-white rounded-2xl shadow-xl p-6 border border-gray-100"}>
+        {!compact && (
+          <div className="mb-6">
+            <h3 className="text-xl font-bold text-[#05141F]">Nhận báo giá ưu đãi</h3>
+            <div className="w-10 h-0.5 bg-[#BB162B] mt-2" />
+            <p className="text-sm text-gray-500 mt-2">
+              Để lại thông tin, tư vấn viên sẽ liên hệ ngay!
+            </p>
           </div>
-          <p className="font-semibold text-green-700">Đã gửi thành công!</p>
-          <p className="text-sm text-gray-500 mt-1">Tư vấn viên sẽ liên hệ bạn sớm nhất.</p>
-        </div>
-      ) : (
+        )}
+
         <form onSubmit={handleSubmit} className="space-y-3">
           <input
             type="text"
@@ -88,14 +89,14 @@ export default function QuoteForm({ defaultCar = "", compact = false }: QuoteFor
             Nhận báo giá
           </button>
           <a
-            href="tel:0962216351"
+            href="tel:0931456204"
             className="w-full border border-[#05141F] text-[#05141F] hover:bg-[#05141F] hover:text-white py-3 rounded-lg font-semibold flex items-center justify-center gap-2 transition-colors text-sm"
           >
             <Phone size={16} />
-            Gọi: 096.2216.351
+            Gọi: 0931.456.204
           </a>
         </form>
-      )}
-    </div>
+      </div>
+    </>
   );
 }
