@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { Phone } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "KIA Hồ Chí Minh – Đại Lý KIA Chính Hãng | 096.2216.351",
@@ -15,8 +16,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="vi">
       <body>
         <Header />
-        <main className="pt-[104px]">{children}</main>
+        {/* header = top bar ~26px + nav 64px = 90px */}
+        <main className="pt-[90px]">{children}</main>
         <Footer />
+
+        {/* Global floating call button */}
+        <a
+          href="tel:0962216351"
+          className="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-[#BB162B] text-white px-4 sm:px-5 py-3 rounded-full shadow-2xl hover:bg-[#9a1022] active:scale-95 transition-all font-semibold text-sm"
+          aria-label="Gọi ngay"
+        >
+          <Phone size={18} />
+          <span className="hidden sm:block">Gọi ngay</span>
+        </a>
       </body>
     </html>
   );

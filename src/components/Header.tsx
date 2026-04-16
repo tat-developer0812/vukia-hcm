@@ -24,10 +24,11 @@ export default function Header() {
       {/* Top bar */}
       <div className="bg-[#05141F] text-white text-sm py-1.5 px-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <span className="hidden md:block">
+          <span className="hidden md:block text-xs tracking-wide">
             ĐẠI LÝ KIA CHÍNH HÃNG TẠI TP.HỒ CHÍ MINH
           </span>
-          <div className="flex items-center gap-4 text-xs">
+          {/* On mobile: full width centered; md+: right-aligned */}
+          <div className="flex items-center gap-4 text-xs w-full md:w-auto justify-center md:justify-end">
             <a
               href="tel:0962216351"
               className="flex items-center gap-1.5 hover:text-[#BB162B] transition-colors"
@@ -35,10 +36,8 @@ export default function Header() {
               <Phone size={13} />
               <span className="font-semibold">096.2216.351</span>
             </a>
-            <span className="hidden md:block text-gray-400">|</span>
-            <span className="hidden md:block text-gray-300">
-              7:30 – 21:00 · Thứ 2 – CN
-            </span>
+            <span className="text-gray-400">|</span>
+            <span className="text-gray-300 hidden sm:block">7:30 – 21:00 · Thứ 2 – CN</span>
           </div>
         </div>
       </div>

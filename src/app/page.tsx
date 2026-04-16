@@ -184,14 +184,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Floating call button */}
-      <a
-        href="tel:0962216351"
-        className="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-[#BB162B] text-white px-5 py-3 rounded-full shadow-2xl hover:bg-[#9a1022] transition-colors font-semibold text-sm"
-      >
-        <Phone size={18} />
-        <span>Gọi ngay</span>
-      </a>
+      {/* Floating call button is in layout.tsx */}
     </>
   );
 }

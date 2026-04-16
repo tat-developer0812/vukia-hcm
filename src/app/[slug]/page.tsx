@@ -45,30 +45,12 @@ export default async function CarPage({ params }: { params: Promise<{ slug: stri
           <div className="lg:col-span-2 space-y-8">
 
             {/* Hero */}
-            <div className="bg-gradient-to-br from-[#05141F] to-[#0d2137] rounded-2xl p-8 text-white relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-[#BB162B]/10 rounded-full -translate-y-16 translate-x-16" />
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center relative z-10">
-                <div>
-                  <span className="bg-[#BB162B] text-white text-xs px-3 py-1 rounded-full font-bold uppercase">
-                    {car.category === "suv" ? "SUV" : car.category === "sedan" ? "Sedan" : car.category === "mpv" ? "MPV" : "Hatchback"}
-                  </span>
-                  <h1 className="text-3xl md:text-4xl font-black mt-3 mb-2">{car.name}</h1>
-                  <p className="text-gray-300 text-sm mb-4 leading-relaxed">{car.description}</p>
-                  <div>
-                    <p className="text-gray-400 text-xs">Giá từ</p>
-                    <p className="text-3xl font-black text-[#BB162B]">{car.startPrice}</p>
-                    <p className="text-gray-400 text-xs mt-1">
-                      Trả trước: <span className="text-white font-semibold">{car.downPayment}</span>
-                    </p>
-                  </div>
-                  <div className="flex gap-3 mt-5">
-                    <a href="tel:0962216351"
-                      className="bg-[#BB162B] hover:bg-[#9a1022] text-white px-4 py-2.5 rounded-full font-bold text-sm flex items-center gap-2 transition-colors">
-                      <Phone size={14} /> Báo giá ngay
-                    </a>
-                  </div>
-                </div>
-                <div className="relative h-48 md:h-56">
+            <div className="bg-gradient-to-br from-[#05141F] to-[#0d2137] rounded-2xl p-5 sm:p-8 text-white relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-48 h-48 bg-[#BB162B]/10 rounded-full -translate-y-12 translate-x-12 hidden md:block" />
+              {/* Stack on mobile, 2-col on md+ */}
+              <div className="flex flex-col md:grid md:grid-cols-2 md:gap-6 md:items-center relative z-10">
+                {/* Image — top on mobile */}
+                <div className="relative h-40 sm:h-48 md:h-56 md:order-2 mb-4 md:mb-0">
                   <Image
                     src={car.heroImage}
                     alt={car.name}
@@ -77,6 +59,27 @@ export default async function CarPage({ params }: { params: Promise<{ slug: stri
                     unoptimized
                     priority
                   />
+                </div>
+                {/* Text */}
+                <div className="md:order-1">
+                  <span className="bg-[#BB162B] text-white text-xs px-3 py-1 rounded-full font-bold uppercase">
+                    {car.category === "suv" ? "SUV" : car.category === "sedan" ? "Sedan" : car.category === "mpv" ? "MPV" : "Hatchback"}
+                  </span>
+                  <h1 className="text-2xl sm:text-3xl md:text-4xl font-black mt-3 mb-2">{car.name}</h1>
+                  <p className="text-gray-300 text-sm mb-4 leading-relaxed hidden sm:block">{car.description}</p>
+                  <div>
+                    <p className="text-gray-400 text-xs">Giá từ</p>
+                    <p className="text-2xl sm:text-3xl font-black text-[#BB162B]">{car.startPrice}</p>
+                    <p className="text-gray-400 text-xs mt-1">
+                      Trả trước: <span className="text-white font-semibold">{car.downPayment}</span>
+                    </p>
+                  </div>
+                  <div className="flex gap-3 mt-4">
+                    <a href="tel:0962216351"
+                      className="bg-[#BB162B] hover:bg-[#9a1022] text-white px-4 py-2.5 rounded-full font-bold text-sm flex items-center gap-2 transition-colors">
+                      <Phone size={14} /> Báo giá ngay
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -107,8 +110,8 @@ export default async function CarPage({ params }: { params: Promise<{ slug: stri
                 Bảng giá {car.name}
                 <div className="w-10 h-0.5 bg-[#BB162B] mt-2" />
               </h2>
-              <div className="overflow-hidden rounded-xl border border-gray-100">
-                <table className="w-full text-sm">
+              <div className="overflow-x-auto rounded-xl border border-gray-100">
+                <table className="w-full text-sm min-w-[320px]">
                   <thead>
                     <tr className="bg-[#05141F] text-white">
                       <th className="text-left px-4 py-3 font-semibold">Phiên bản</th>
@@ -147,7 +150,8 @@ export default async function CarPage({ params }: { params: Promise<{ slug: stri
           {/* Sidebar */}
           <div className="lg:col-span-1 space-y-6">
             {/* Form */}
-            <div className="sticky top-28">
+            {/* top-[94px] = header height 90px + 4px gap */}
+            <div className="sticky top-[94px]">
               <QuoteForm defaultCar={car.slug} />
 
               {/* Other cars */}
@@ -178,12 +182,7 @@ export default async function CarPage({ params }: { params: Promise<{ slug: stri
         </div>
       </div>
 
-      {/* Floating call */}
-      <a href="tel:0962216351"
-        className="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-[#BB162B] text-white px-5 py-3 rounded-full shadow-2xl hover:bg-[#9a1022] transition-colors font-semibold text-sm">
-        <Phone size={18} />
-        <span>Gọi ngay</span>
-      </a>
+      {/* Floating call button is in layout.tsx */}
     </div>
   );
 }

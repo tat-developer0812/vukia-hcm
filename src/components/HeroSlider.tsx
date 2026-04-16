@@ -44,58 +44,20 @@ export default function HeroSlider() {
 
   const prev = () => setCurrent((current - 1 + slides.length) % slides.length);
   const next = () => setCurrent((current + 1) % slides.length);
-
   const slide = slides[current];
 
   return (
-    <section className="relative h-[520px] md:h-[600px] lg:h-[680px] overflow-hidden">
-      {/* Background */}
+    <section className="relative overflow-hidden bg-[#05141F]">
+      {/* Background gradient */}
       <div className={`absolute inset-0 bg-gradient-to-r ${slide.bg} transition-all duration-700`} />
 
-      {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 h-full flex items-center">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center w-full">
-          {/* Text */}
-          <div className="text-white order-2 lg:order-1">
-            <span className="inline-block bg-[#BB162B] text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4">
-              {slide.badge}
-            </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-2">
-              {slide.car.name}
-            </h1>
-            <p className="text-xl text-gray-300 mb-2">{slide.tagline}</p>
-            <p className="text-sm text-gray-400 mb-6">{slide.car.description}</p>
+      {/* Content — mobile: column stack, desktop: 2 col */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4">
+        <div className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-8 items-center min-h-0">
 
-            <div className="mb-6">
-              <p className="text-sm text-gray-400">Giá từ</p>
-              <p className="text-3xl font-black text-[#BB162B]">
-                {slide.car.startPrice}
-              </p>
-              <p className="text-sm text-gray-400 mt-1">
-                Trả trước từ: <span className="text-white font-semibold">{slide.car.downPayment}</span>
-              </p>
-            </div>
-
-            <div className="flex flex-wrap gap-3">
-              <Link
-                href={`/${slide.car.slug}`}
-                className="bg-[#BB162B] hover:bg-[#9a1022] text-white px-6 py-3 rounded-full font-bold text-sm transition-colors"
-              >
-                Xem chi tiết
-              </Link>
-              <a
-                href="tel:0962216351"
-                className="flex items-center gap-2 border border-white text-white hover:bg-white hover:text-[#05141F] px-6 py-3 rounded-full font-bold text-sm transition-colors"
-              >
-                <Phone size={14} />
-                Báo giá ngay
-              </a>
-            </div>
-          </div>
-
-          {/* Car image */}
-          <div className="order-1 lg:order-2 flex items-center justify-center">
-            <div className="relative w-full max-w-lg h-64 md:h-80">
+          {/* Car image — top on mobile */}
+          <div className="lg:order-2 w-full flex justify-center pt-6 lg:pt-0">
+            <div className="relative w-full max-w-sm lg:max-w-lg h-48 sm:h-56 md:h-64 lg:h-80">
               <Image
                 src={slide.car.heroImage}
                 alt={slide.car.name}
@@ -106,33 +68,72 @@ export default function HeroSlider() {
               />
             </div>
           </div>
+
+          {/* Text — below image on mobile */}
+          <div className="lg:order-1 text-white py-6 lg:py-16 w-full">
+            <span className="inline-block bg-[#BB162B] text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-3">
+              {slide.badge}
+            </span>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black leading-tight mb-1">
+              {slide.car.name}
+            </h1>
+            <p className="text-base sm:text-lg text-gray-300 mb-1">{slide.tagline}</p>
+            {/* Hide description on mobile to save space */}
+            <p className="hidden sm:block text-sm text-gray-400 mb-4 line-clamp-2">
+              {slide.car.description}
+            </p>
+
+            <div className="mb-4">
+              <p className="text-xs text-gray-400">Giá từ</p>
+              <p className="text-2xl sm:text-3xl font-black text-[#BB162B]">{slide.car.startPrice}</p>
+              <p className="text-xs text-gray-400 mt-0.5">
+                Trả trước: <span className="text-white font-semibold">{slide.car.downPayment}</span>
+              </p>
+            </div>
+
+            <div className="flex flex-wrap gap-2 pb-6 lg:pb-0">
+              <Link
+                href={`/${slide.car.slug}`}
+                className="bg-[#BB162B] hover:bg-[#9a1022] text-white px-5 py-2.5 rounded-full font-bold text-sm transition-colors"
+              >
+                Xem chi tiết
+              </Link>
+              <a
+                href="tel:0962216351"
+                className="flex items-center gap-1.5 border border-white/70 text-white hover:bg-white hover:text-[#05141F] px-5 py-2.5 rounded-full font-bold text-sm transition-colors"
+              >
+                <Phone size={13} />
+                Báo giá
+              </a>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Navigation arrows */}
+      {/* Arrows */}
       <button
         onClick={prev}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 bg-white/20 hover:bg-white/40 backdrop-blur text-white rounded-full flex items-center justify-center transition-colors"
+        className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 bg-white/20 hover:bg-white/40 backdrop-blur text-white rounded-full flex items-center justify-center transition-colors"
         aria-label="Previous"
       >
-        <ChevronLeft size={20} />
+        <ChevronLeft size={18} />
       </button>
       <button
         onClick={next}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 bg-white/20 hover:bg-white/40 backdrop-blur text-white rounded-full flex items-center justify-center transition-colors"
+        className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 bg-white/20 hover:bg-white/40 backdrop-blur text-white rounded-full flex items-center justify-center transition-colors"
         aria-label="Next"
       >
-        <ChevronRight size={20} />
+        <ChevronRight size={18} />
       </button>
 
       {/* Dots */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex gap-1.5">
         {slides.map((_, i) => (
           <button
             key={i}
             onClick={() => setCurrent(i)}
-            className={`w-2 h-2 rounded-full transition-all ${
-              i === current ? "bg-[#BB162B] w-6" : "bg-white/50"
+            className={`h-2 rounded-full transition-all duration-300 ${
+              i === current ? "bg-[#BB162B] w-6" : "bg-white/40 w-2"
             }`}
             aria-label={`Slide ${i + 1}`}
           />
