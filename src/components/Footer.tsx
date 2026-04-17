@@ -76,7 +76,7 @@ export default function Footer() {
               <MapPin size={16} className="text-[#BB162B] mt-0.5 shrink-0" />
               <div>
                 <span className="text-gray-300 text-sm">{contact.address}</span>
-                <a href="https://maps.google.com/maps?q=38+Ch%E1%BA%BF+Lan+Vi%C3%AAn+T%C3%A2y+Th%E1%BA%A1nh+T%C3%A2n+Ph%C3%BA+TP+HCM"
+                <a href="https://maps.google.com/maps?q=189+Nguy%E1%BB%85n+Oanh+Ph%C6%B0%E1%BB%9Dng+10+Qu%E1%BA%ADn+G%C3%B2+V%E1%BA%A5p+TP+HCM"
                   target="_blank" rel="noopener noreferrer"
                   className="block text-xs text-[#BB162B] hover:underline mt-0.5">
                   Xem bản đồ →

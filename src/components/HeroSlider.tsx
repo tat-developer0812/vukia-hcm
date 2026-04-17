@@ -76,9 +76,9 @@ export default function HeroSlider() {
             <span className="inline-block bg-[#BB162B] text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-3">
               {slide.badge}
             </span>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black leading-tight mb-1">
+            <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black leading-tight mb-1 text-white">
               {slide.car.name}
-            </h1>
+            </p>
             <p className="text-base sm:text-lg text-gray-300 mb-1">{slide.tagline}</p>
             {/* Hide description on mobile to save space */}
             <p className="hidden sm:block text-sm text-gray-400 mb-4 line-clamp-2">

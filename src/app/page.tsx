@@ -8,6 +8,7 @@ import { cars, promotions, contact } from "@/lib/data";
 export default function HomePage() {
   return (
     <>
+      <h1 className="sr-only">Showroom Ô Tô KIA Gò Vấp – Đại Lý KIA Chính Hãng Tại TP HCM</h1>
       <HeroSlider />
 
       {/* Quick CTA bar */}
@@ -168,10 +169,10 @@ export default function HomePage() {
             <div className="rounded-2xl overflow-hidden h-52 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
               <div className="text-center">
                 <MapPin className="text-[#BB162B] mx-auto mb-2" size={36} />
-                <p className="text-sm font-semibold text-[#05141F]">38 Chế Lan Viên</p>
-                <p className="text-xs text-gray-500 mt-1">Tây Thạnh, Tân Phú, TP.HCM</p>
+                <p className="text-sm font-semibold text-[#05141F]">189 Nguyễn Oanh</p>
+                <p className="text-xs text-gray-500 mt-1">Phường 10, Quận Gò Vấp, TP HCM</p>
                 <a
-                  href="https://maps.google.com/?q=38+Chế+Lan+Viên+Tân+Phú+HCM"
+                  href="https://maps.google.com/?q=189+Nguyễn+Oanh+Phường+10+Quận+Gò+Vấp+TP+HCM"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-xs text-[#BB162B] font-bold mt-2 inline-block border border-[#BB162B] px-3 py-1 rounded-full hover:bg-[#BB162B] hover:text-white transition-colors"

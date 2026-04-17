@@ -4,7 +4,7 @@ import { contact } from "@/lib/data";
 
 export const metadata = {
   title: "Liên hệ KIA Hồ Chí Minh – 0931.456.204",
-  description: "Liên hệ đại lý KIA HCM để nhận tư vấn và báo giá xe tốt nhất. Địa chỉ: 38 Chế Lan Viên, Tân Phú, TP.HCM",
+  description: "Liên hệ đại lý KIA HCM để nhận tư vấn và báo giá xe tốt nhất. Địa chỉ: 189 Nguyễn Oanh, Phường 10, Quận Gò Vấp, TP HCM",
 };
 
 export default function ContactPage() {
@@ -77,14 +77,14 @@ export default function ContactPage() {
           {/* Google Map */}
           <div className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
             <iframe
-              src="https://maps.google.com/maps?q=38+Ch%E1%BA%BF+Lan+Vi%C3%AAn+T%C3%A2y+Th%E1%BA%A1nh+T%C3%A2n+Ph%C3%BA+TP+HCM&output=embed&z=16"
+              src="https://maps.google.com/maps?q=189+Nguy%E1%BB%85n+Oanh+Ph%C6%B0%E1%BB%9Dng+10+Qu%E1%BA%ADn+G%C3%B2+V%E1%BA%A5p+TP+HCM&output=embed&z=16"
               width="100%" height="300" style={{border:0}} allowFullScreen loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
               title="Bản đồ KIA Hồ Chí Minh"
             />
             <div className="px-5 py-3 flex items-center justify-between border-t border-gray-100">
               <p className="text-sm text-gray-500">{contact.address}</p>
-              <a href="https://maps.google.com/maps?q=38+Ch%E1%BA%BF+Lan+Vi%C3%AAn+T%C3%A2y+Th%E1%BA%A1nh+T%C3%A2n+Ph%C3%BA+TP+HCM"
+              <a href="https://maps.google.com/maps?q=189+Nguy%E1%BB%85n+Oanh+Ph%C6%B0%E1%BB%9Dng+10+Qu%E1%BA%ADn+G%C3%B2+V%E1%BA%A5p+TP+HCM"
                 target="_blank" rel="noopener noreferrer"
                 className="shrink-0 ml-4 text-xs font-bold text-[#BB162B] hover:underline">
                 Chỉ đường →

@@ -44,42 +44,58 @@ export default function QuoteForm({ defaultCar = "", compact = false, onSuccess 
         )}
 
         <form onSubmit={handleSubmit} className="space-y-3">
-          <input
-            type="text"
-            placeholder="Họ và tên *"
-            required
-            value={form.name}
-            onChange={(e) => setForm({ ...form, name: e.target.value })}
-            className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#BB162B] focus:ring-2 focus:ring-red-100 transition"
-          />
-          <input
-            type="tel"
-            placeholder="Số điện thoại *"
-            required
-            value={form.phone}
-            onChange={(e) => setForm({ ...form, phone: e.target.value })}
-            className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#BB162B] focus:ring-2 focus:ring-red-100 transition"
-          />
-          <select
-            value={form.car}
-            onChange={(e) => setForm({ ...form, car: e.target.value })}
-            className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#BB162B] focus:ring-2 focus:ring-red-100 transition bg-white"
-          >
-            <option value="">-- Chọn dòng xe --</option>
-            {cars.map((c) => (
-              <option key={c.slug} value={c.slug}>
-                {c.name}
-              </option>
-            ))}
-          </select>
-          {!compact && (
-            <textarea
-              placeholder="Ghi chú thêm (tùy chọn)"
-              rows={3}
-              value={form.note}
-              onChange={(e) => setForm({ ...form, note: e.target.value })}
-              className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#BB162B] focus:ring-2 focus:ring-red-100 transition resize-none"
+          <div>
+            <label htmlFor="quote-name" className="sr-only">Họ và tên</label>
+            <input
+              id="quote-name"
+              type="text"
+              placeholder="Họ và tên *"
+              required
+              value={form.name}
+              onChange={(e) => setForm({ ...form, name: e.target.value })}
+              className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#BB162B] focus:ring-2 focus:ring-red-100 transition"
             />
+          </div>
+          <div>
+            <label htmlFor="quote-phone" className="sr-only">Số điện thoại</label>
+            <input
+              id="quote-phone"
+              type="tel"
+              placeholder="Số điện thoại *"
+              required
+              value={form.phone}
+              onChange={(e) => setForm({ ...form, phone: e.target.value })}
+              className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#BB162B] focus:ring-2 focus:ring-red-100 transition"
+            />
+          </div>
+          <div>
+            <label htmlFor="quote-car" className="sr-only">Dòng xe</label>
+            <select
+              id="quote-car"
+              value={form.car}
+              onChange={(e) => setForm({ ...form, car: e.target.value })}
+              className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#BB162B] focus:ring-2 focus:ring-red-100 transition bg-white"
+            >
+              <option value="">-- Chọn dòng xe --</option>
+              {cars.map((c) => (
+                <option key={c.slug} value={c.slug}>
+                  {c.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          {!compact && (
+            <div>
+              <label htmlFor="quote-note" className="sr-only">Ghi chú</label>
+              <textarea
+                id="quote-note"
+                placeholder="Ghi chú thêm (tùy chọn)"
+                rows={3}
+                value={form.note}
+                onChange={(e) => setForm({ ...form, note: e.target.value })}
+                className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#BB162B] focus:ring-2 focus:ring-red-100 transition resize-none"
+              />
+            </div>
           )}
           <button
             type="submit"

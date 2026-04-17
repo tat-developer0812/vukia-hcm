@@ -200,13 +200,13 @@ export const promotions = [
 ];
 
 export const contact = {
-  name: "THACO AUTO Trường Chinh TP.HCM",
-  fullName: "CÔNG TY TNHH THACO AUTO Trường Chinh TP.HCM",
-  address: "38 Chế Lan Viên, Tây Thạnh, Tân Phú, TP.HCM",
+  name: "Showroom Ô Tô KIA Gò Vấp",
+  fullName: "Showroom Ô Tô KIA Gò Vấp - TP HCM",
+  address: "189 Nguyễn Oanh, Phường 10, Quận Gò Vấp, TP HCM",
   hotline: "0931.456.204",
   phone: "0931.456.204",
   email: "vu@thaco.com.vn",
   hours: "7:30 - 21:00 (Tất cả các ngày trong tuần)",
   consultant: "Vũ",
-  mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.3!2d106.6!3d10.78!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2s38+Ch%E1%BA%BF+Lan+Vi%C3%AAn!5e0!3m2!1svi!2svn!4v1",
+  mapEmbed: "https://maps.google.com/maps?q=189+Nguy%E1%BB%85n+Oanh+Ph%C6%B0%E1%BB%9Dng+10+Qu%E1%BA%ADn+G%C3%B2+V%E1%BA%A5p+TP+HCM&output=embed&z=16",
 };
