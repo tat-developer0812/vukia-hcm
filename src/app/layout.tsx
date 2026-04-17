@@ -17,6 +17,11 @@ export const metadata: Metadata = {
   keywords: "KIA Gò Vấp, đại lý KIA HCM, mua xe KIA, KIA Seltos, KIA Sonet, KIA Carens",
   robots: { index: true, follow: true },
   alternates: { canonical: siteUrl },
+  icons: {
+    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
+    shortcut: "/favicon.svg",
+    apple: "/favicon.svg",
+  },
   openGraph: {
     title: "KIA Gò Vấp HCM – Đại Lý KIA Chính Hãng",
     description: siteDescription,
