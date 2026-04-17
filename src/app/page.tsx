@@ -55,40 +55,40 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
             {cars.map((car) => (
               <Link
                 key={car.slug}
                 href={`/${car.slug}`}
                 className="car-card bg-white rounded-2xl overflow-hidden border border-gray-100 group shadow-sm"
               >
-                <div className="relative h-48 bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden">
+                <div className="relative h-32 sm:h-48 bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden">
                   <Image
                     src={car.image}
                     alt={car.name}
                     fill
-                    className="object-contain p-4 group-hover:scale-105 transition-transform duration-500"
+                    className="object-contain p-3 group-hover:scale-105 transition-transform duration-500"
                     unoptimized
                   />
-                  <span className="absolute top-3 left-3 bg-[#05141F] text-white text-xs px-2 py-1 rounded-full font-medium">
+                  <span className="absolute top-2 left-2 sm:top-3 sm:left-3 bg-[#05141F] text-white text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full font-medium">
                     {car.category === "suv" ? "SUV" : car.category === "sedan" ? "Sedan" : car.category === "mpv" ? "MPV" : "Hatchback"}
                   </span>
                 </div>
-                <div className="p-5">
-                  <h3 className="font-black text-lg text-[#05141F] group-hover:text-[#BB162B] transition-colors">
+                <div className="p-3 sm:p-5">
+                  <h3 className="font-black text-sm sm:text-lg text-[#05141F] group-hover:text-[#BB162B] transition-colors leading-tight line-clamp-2">
                     {car.name}
                   </h3>
-                  <div className="mt-2">
-                    <p className="text-xs text-gray-400">Giá từ</p>
-                    <p className="text-xl font-black text-[#BB162B]">{car.startPrice}</p>
+                  <div className="mt-1 sm:mt-2">
+                    <p className="text-[10px] sm:text-xs text-gray-400">Giá từ</p>
+                    <p className="text-sm sm:text-xl font-black text-[#BB162B]">{car.startPrice}</p>
                   </div>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-[10px] sm:text-xs text-gray-500 mt-0.5 sm:mt-1 hidden sm:block">
                     Trả trước từ: <span className="font-semibold">{car.downPayment}</span>
                   </p>
-                  <div className="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between">
-                    <span className="text-xs text-gray-400">{car.specs.seats} chỗ · {car.specs.fuel}</span>
-                    <span className="text-xs font-semibold text-[#BB162B] flex items-center gap-1">
-                      Xem chi tiết <ArrowRight size={12} />
+                  <div className="mt-2 sm:mt-4 pt-2 sm:pt-4 border-t border-gray-100 flex items-center justify-between">
+                    <span className="text-[10px] sm:text-xs text-gray-400 hidden sm:block">{car.specs.seats} chỗ · {car.specs.fuel}</span>
+                    <span className="text-[10px] sm:text-xs font-semibold text-[#BB162B] flex items-center gap-1 w-full sm:w-auto justify-center sm:justify-end">
+                      Báo giá <ArrowRight size={10} />
                     </span>
                   </div>
                 </div>
@@ -106,7 +106,7 @@ export default function HomePage() {
             <h2 className="text-3xl font-black text-[#05141F] mt-2">Đại Lý KIA Hồ Chí Minh</h2>
             <div className="w-14 h-1 bg-[#BB162B] mx-auto mt-3" />
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-8">
             {[
               {
                 icon: <Shield className="w-10 h-10 text-[#BB162B]" />,
@@ -124,12 +124,12 @@ export default function HomePage() {
                 desc: "Bảo hành 5 năm / 150.000 km. Đội ngũ kỹ thuật viên được đào tạo bởi KIA Hàn Quốc.",
               },
             ].map((item, i) => (
-              <div key={i} className="text-center p-6 rounded-2xl bg-gray-50 hover:bg-red-50 transition-colors group">
-                <div className="flex justify-center mb-4">{item.icon}</div>
-                <h3 className="font-bold text-lg text-[#05141F] mb-2 group-hover:text-[#BB162B] transition-colors">
+              <div key={i} className="text-center p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-gray-50 hover:bg-red-50 transition-colors group">
+                <div className="flex justify-center mb-3">{item.icon}</div>
+                <h3 className="font-bold text-sm sm:text-lg text-[#05141F] mb-1 sm:mb-2 group-hover:text-[#BB162B] transition-colors">
                   {item.title}
                 </h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
+                <p className="text-gray-500 text-xs sm:text-sm leading-relaxed hidden sm:block">{item.desc}</p>
               </div>
             ))}
           </div>

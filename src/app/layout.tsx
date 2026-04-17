@@ -23,15 +23,23 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <main className="pt-[90px]">{children}</main>
           <Footer />
 
-          {/* Global floating call button */}
-          <a
-            href="tel:0931456204"
-            className="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-[#BB162B] text-white px-4 sm:px-5 py-3 rounded-full shadow-2xl hover:bg-[#9a1022] active:scale-95 transition-all font-semibold text-sm"
-            aria-label="Gọi ngay"
-          >
-            <Phone size={18} />
-            <span className="hidden sm:block">Gọi ngay</span>
-          </a>
+          {/* Floating buttons */}
+          <div className="fixed bottom-6 right-4 sm:right-6 z-50 flex flex-col gap-3 items-end">
+            <a href="https://zalo.me/0931456204" target="_blank" rel="noopener noreferrer"
+              className="flex items-center gap-2 bg-[#0068FF] text-white px-4 sm:px-5 py-3 rounded-full shadow-2xl hover:bg-[#0057d4] active:scale-95 transition-all font-semibold text-sm"
+              aria-label="Zalo">
+              <svg width="18" height="18" viewBox="0 0 32 32" fill="currentColor">
+                <path d="M16 2C8.268 2 2 8.268 2 16s6.268 14 14 14 14-6.268 14-14S23.732 2 16 2zm6.5 19.5h-2.1l-4.9-6.3v6.3H13V10.5h2.1l4.9 6.3v-6.3H22.5v11z"/>
+              </svg>
+              <span className="hidden sm:block">Zalo</span>
+            </a>
+            <a href="tel:0931456204"
+              className="flex items-center gap-2 bg-[#BB162B] text-white px-4 sm:px-5 py-3 rounded-full shadow-2xl hover:bg-[#9a1022] active:scale-95 transition-all font-semibold text-sm"
+              aria-label="Gọi ngay">
+              <Phone size={18} />
+              <span className="hidden sm:block">Gọi ngay</span>
+            </a>
+          </div>
 
           {/* Global modal */}
           <QuoteModal />

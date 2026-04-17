@@ -74,15 +74,30 @@ export default function Footer() {
           <ul className="space-y-3">
             <li className="flex items-start gap-3">
               <MapPin size={16} className="text-[#BB162B] mt-0.5 shrink-0" />
-              <span className="text-gray-300 text-sm">{contact.address}</span>
+              <div>
+                <span className="text-gray-300 text-sm">{contact.address}</span>
+                <a href="https://maps.google.com/maps?q=38+Ch%E1%BA%BF+Lan+Vi%C3%AAn+T%C3%A2y+Th%E1%BA%A1nh+T%C3%A2n+Ph%C3%BA+TP+HCM"
+                  target="_blank" rel="noopener noreferrer"
+                  className="block text-xs text-[#BB162B] hover:underline mt-0.5">
+                  Xem bản đồ →
+                </a>
+              </div>
             </li>
             <li className="flex items-center gap-3">
               <Phone size={16} className="text-[#BB162B] shrink-0" />
-              <a
-                href={`tel:${contact.hotline.replace(/\./g, "")}`}
-                className="text-gray-300 hover:text-[#BB162B] text-sm transition-colors font-semibold"
-              >
+              <a href={`tel:${contact.hotline.replace(/\./g, "")}`}
+                className="text-gray-300 hover:text-[#BB162B] text-sm transition-colors font-semibold">
                 {contact.hotline}
+              </a>
+            </li>
+            <li className="flex items-center gap-3">
+              <svg width="16" height="16" viewBox="0 0 32 32" fill="#0068FF">
+                <path d="M16 2C8.268 2 2 8.268 2 16s6.268 14 14 14 14-6.268 14-14S23.732 2 16 2zm6.5 19.5h-2.1l-4.9-6.3v6.3H13V10.5h2.1l4.9 6.3v-6.3H22.5v11z"/>
+              </svg>
+              <a href={`https://zalo.me/${contact.hotline.replace(/\./g, "")}`}
+                target="_blank" rel="noopener noreferrer"
+                className="text-gray-300 hover:text-[#0068FF] text-sm transition-colors font-semibold">
+                Zalo: {contact.hotline}
               </a>
             </li>
             <li className="flex items-center gap-3">
