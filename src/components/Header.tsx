@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X, Phone, ChevronDown } from "lucide-react";
 import { cars } from "@/lib/data";
+import Logo from "@/components/Logo";
 import { useModal } from "@/context/ModalContext";
 
 export default function Header() {
@@ -47,15 +48,8 @@ export default function Header() {
       {/* Main nav */}
       <nav className="max-w-7xl mx-auto px-4 flex items-center justify-between h-16">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 shrink-0">
-          <div className="flex items-center">
-            <span className="text-2xl font-black tracking-tighter text-[#05141F] italic">
-              KIA
-            </span>
-            <span className="ml-2 text-sm font-semibold text-[#BB162B] hidden sm:block">
-              HỒ CHÍ MINH
-            </span>
-          </div>
+        <Link href="/" className="flex items-center shrink-0">
+          <Logo variant="dark" size="md" />
         </Link>
 
         {/* Desktop menu */}

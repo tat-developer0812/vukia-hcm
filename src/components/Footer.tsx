@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Phone, MapPin, Mail, Clock } from "lucide-react";
 import { cars, contact } from "@/lib/data";
+import Logo from "@/components/Logo";
 
 export default function Footer() {
   return (
@@ -10,8 +11,7 @@ export default function Footer() {
         {/* Brand */}
         <div>
           <div className="mb-4">
-            <span className="text-3xl font-black tracking-tighter italic">KIA</span>
-            <div className="w-12 h-1 bg-[#BB162B] mt-2" />
+            <Logo variant="light" size="md" />
           </div>
           <p className="text-gray-300 text-sm leading-relaxed mb-4">
             {contact.fullName}
