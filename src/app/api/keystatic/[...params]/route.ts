@@ -2,50 +2,67 @@ export const runtime = "nodejs";
 
 import { makeRouteHandler } from "@keystatic/next/route-handler";
 import config from "../../../../../keystatic.config";
+import { serialize } from "cookie";
 
 const keystaticHandler = makeRouteHandler({ config });
 
-async function debugHandler(request: Request): Promise<Response> {
+async function handler(request: Request): Promise<Response> {
   const url = new URL(request.url);
   const path = url.pathname;
 
-  // Intercept callback to log raw GitHub response
+  // Custom OAuth callback — works with both expiring and non-expiring tokens
   if (path.includes("github/oauth/callback")) {
     const code = url.searchParams.get("code");
-    if (code) {
-      const tokenUrl = new URL("https://github.com/login/oauth/access_token");
-      tokenUrl.searchParams.set("client_id", process.env.KEYSTATIC_GITHUB_CLIENT_ID!);
-      tokenUrl.searchParams.set("client_secret", process.env.KEYSTATIC_GITHUB_CLIENT_SECRET!);
-      tokenUrl.searchParams.set("code", code);
+    const state = url.searchParams.get("state");
 
-      const res = await fetch(tokenUrl, {
-        method: "POST",
-        headers: { Accept: "application/json" },
-      });
-      const data = await res.json();
-
-      // If token exchange failed or missing refresh_token, show debug info
-      if (data.error || !("refresh_token" in data)) {
-        return new Response(
-          JSON.stringify({
-            debug: true,
-            keys: Object.keys(data),
-            error: data.error ?? null,
-            has_refresh_token: "refresh_token" in data,
-            has_expires_in: "expires_in" in data,
-            token_type: data.token_type ?? null,
-          }),
-          { status: 200, headers: { "Content-Type": "application/json" } }
-        );
-      }
+    if (!code) {
+      return new Response("Bad Request", { status: 400 });
     }
+
+    const tokenUrl = new URL("https://github.com/login/oauth/access_token");
+    tokenUrl.searchParams.set("client_id", process.env.KEYSTATIC_GITHUB_CLIENT_ID!);
+    tokenUrl.searchParams.set("client_secret", process.env.KEYSTATIC_GITHUB_CLIENT_SECRET!);
+    tokenUrl.searchParams.set("code", code);
+
+    const res = await fetch(tokenUrl, {
+      method: "POST",
+      headers: { Accept: "application/json" },
+    });
+    const data = await res.json();
+
+    if (data.error || !data.access_token) {
+      return new Response(`GitHub OAuth error: ${data.error_description ?? data.error}`, { status: 401 });
+    }
+
+    const isProduction = process.env.NODE_ENV === "production";
+    const cookieOptions = {
+      httpOnly: true,
+      secure: isProduction,
+      sameSite: "lax" as const,
+      path: "/",
+      maxAge: 60 * 60 * 24 * 30, // 30 days
+    };
+
+    const headers = new Headers();
+    headers.append("Set-Cookie", serialize("keystatic-gh-access-token", data.access_token, cookieOptions));
+    // Set a placeholder refresh token so Keystatic doesn't complain
+    headers.append("Set-Cookie", serialize("keystatic-gh-refresh-token", data.access_token, cookieOptions));
+
+    if (state === "close") {
+      headers.set("Content-Type", "text/html");
+      return new Response(
+        "<script>localStorage.setItem('ks-refetch-installations', 'true');window.close();</script>",
+        { status: 200, headers }
+      );
+    }
+
+    headers.set("Location", "/keystatic");
+    return new Response(null, { status: 307, headers });
   }
 
-  // Normal Keystatic handling
-  const { GET, POST } = keystaticHandler;
-  if (request.method === "POST") return POST(request);
-  return GET(request);
+  if (request.method === "POST") return keystaticHandler.POST(request);
+  return keystaticHandler.GET(request);
 }
 
-export const GET = debugHandler;
-export const POST = (req: Request) => keystaticHandler.POST(req);
+export const GET = handler;
+export const POST = handler;
