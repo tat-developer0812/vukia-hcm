@@ -1,4 +1,4 @@
-import { contact } from "@/lib/data";
+import { getContact } from "@/lib/data";
 
 export const metadata = {
   title: "Chính Sách Bảo Mật – KIA Gò Vấp HCM",
@@ -6,7 +6,9 @@ export const metadata = {
   alternates: { canonical: "https://www.kiagovaphcm.com/privacy-policy" },
 };
 
-export default function PrivacyPolicyPage() {
+export default async function PrivacyPolicyPage() {
+  const contact = await getContact();
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="bg-gradient-to-r from-[#05141F] to-[#0d2137] py-16 px-4 text-white text-center">

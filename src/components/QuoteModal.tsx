@@ -2,12 +2,12 @@
 import { useEffect } from "react";
 import { X } from "lucide-react";
 import { useModal } from "@/context/ModalContext";
+import type { Car } from "@/lib/data";
 import QuoteForm from "./QuoteForm";
 
-export default function QuoteModal() {
+export default function QuoteModal({ cars }: { cars: Car[] }) {
   const { isOpen, defaultCar, closeModal } = useModal();
 
-  // Lock body scroll when open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -17,7 +17,6 @@ export default function QuoteModal() {
     return () => { document.body.style.overflow = ""; };
   }, [isOpen]);
 
-  // Close on Escape
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.key === "Escape") closeModal();
@@ -30,14 +29,8 @@ export default function QuoteModal() {
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-      {/* Backdrop */}
-      <div
-        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-        onClick={closeModal}
-      />
-      {/* Panel */}
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={closeModal} />
       <div className="relative z-10 w-full max-w-md bg-white rounded-2xl shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto">
-        {/* Header */}
         <div className="bg-gradient-to-r from-[#05141F] to-[#0d2137] px-6 py-4 flex items-center justify-between">
           <div>
             <h2 className="text-white font-black text-lg">Báo giá & Tư vấn</h2>
@@ -51,9 +44,8 @@ export default function QuoteModal() {
             <X size={20} />
           </button>
         </div>
-        {/* Form */}
         <div className="p-6">
-          <QuoteForm defaultCar={defaultCar} onSuccess={closeModal} />
+          <QuoteForm cars={cars} defaultCar={defaultCar} onSuccess={closeModal} />
         </div>
       </div>
     </div>

@@ -2,11 +2,11 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X, Phone, ChevronDown } from "lucide-react";
-import { cars } from "@/lib/data";
+import type { Car } from "@/lib/data";
 import Logo from "@/components/Logo";
 import { useModal } from "@/context/ModalContext";
 
-export default function Header() {
+export default function Header({ cars }: { cars: Car[] }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [carMenuOpen, setCarMenuOpen] = useState(false);
@@ -30,7 +30,6 @@ export default function Header() {
           <span className="hidden md:block text-xs tracking-wide">
             ĐẠI LÝ KIA CHÍNH HÃNG TẠI TP.HỒ CHÍ MINH
           </span>
-          {/* On mobile: full width centered; md+: right-aligned */}
           <div className="flex items-center gap-4 text-xs w-full md:w-auto justify-center md:justify-end">
             <a
               href="tel:0931456204"
@@ -47,7 +46,6 @@ export default function Header() {
 
       {/* Main nav */}
       <nav className="max-w-7xl mx-auto px-4 flex items-center justify-between h-16">
-        {/* Logo */}
         <Link href="/" className="flex items-center shrink-0">
           <Logo variant="dark" size="md" />
         </Link>
@@ -58,7 +56,6 @@ export default function Header() {
             Trang chủ
           </Link>
 
-          {/* Dropdown dòng xe */}
           <div
             className="relative"
             onMouseEnter={() => setCarMenuOpen(true)}
@@ -76,36 +73,24 @@ export default function Header() {
                     className="block px-4 py-2.5 text-sm hover:bg-red-50 hover:text-[#BB162B] transition-colors"
                   >
                     <span className="font-semibold">{c.shortName}</span>
-                    <span className="text-xs text-gray-500 block">
-                      Từ {c.startPrice}
-                    </span>
+                    <span className="text-xs text-gray-500 block">Từ {c.startPrice}</span>
                   </Link>
                 ))}
               </div>
             )}
           </div>
 
-          <Link
-            href="/dang-ky-lai-thu-xe-kia"
-            className="hover:text-[#BB162B] transition-colors py-2"
-          >
+          <Link href="/dang-ky-lai-thu-xe-kia" className="hover:text-[#BB162B] transition-colors py-2">
             Đăng ký lái thử
           </Link>
-          <Link
-            href="/thu-tuc-tra-gop-xe-kia"
-            className="hover:text-[#BB162B] transition-colors py-2"
-          >
+          <Link href="/thu-tuc-tra-gop-xe-kia" className="hover:text-[#BB162B] transition-colors py-2">
             Trả góp
           </Link>
-          <Link
-            href="/lien-he-kia-ho-chi-minh"
-            className="hover:text-[#BB162B] transition-colors py-2"
-          >
+          <Link href="/lien-he-kia-ho-chi-minh" className="hover:text-[#BB162B] transition-colors py-2">
             Liên hệ
           </Link>
         </div>
 
-        {/* CTA button */}
         <div className="hidden lg:flex items-center gap-3">
           <button
             onClick={() => openModal()}
@@ -116,7 +101,6 @@ export default function Header() {
           </button>
         </div>
 
-        {/* Mobile hamburger */}
         <button
           className="lg:hidden p-2 text-[#05141F]"
           onClick={() => setOpen(!open)}
@@ -129,17 +113,11 @@ export default function Header() {
       {/* Mobile menu */}
       {open && (
         <div className="lg:hidden bg-white border-t px-4 pb-4 shadow-lg">
-          <Link
-            href="/"
-            className="block py-3 border-b text-sm font-medium"
-            onClick={() => setOpen(false)}
-          >
+          <Link href="/" className="block py-3 border-b text-sm font-medium" onClick={() => setOpen(false)}>
             Trang chủ
           </Link>
           <div className="py-3 border-b">
-            <p className="text-xs font-semibold text-gray-500 uppercase mb-2">
-              Dòng xe KIA
-            </p>
+            <p className="text-xs font-semibold text-gray-500 uppercase mb-2">Dòng xe KIA</p>
             <div className="grid grid-cols-2 gap-1">
               {cars.map((c) => (
                 <Link
@@ -153,25 +131,13 @@ export default function Header() {
               ))}
             </div>
           </div>
-          <Link
-            href="/dang-ky-lai-thu-xe-kia"
-            className="block py-3 border-b text-sm"
-            onClick={() => setOpen(false)}
-          >
+          <Link href="/dang-ky-lai-thu-xe-kia" className="block py-3 border-b text-sm" onClick={() => setOpen(false)}>
             Đăng ký lái thử
           </Link>
-          <Link
-            href="/thu-tuc-tra-gop-xe-kia"
-            className="block py-3 border-b text-sm"
-            onClick={() => setOpen(false)}
-          >
+          <Link href="/thu-tuc-tra-gop-xe-kia" className="block py-3 border-b text-sm" onClick={() => setOpen(false)}>
             Trả góp
           </Link>
-          <Link
-            href="/lien-he-kia-ho-chi-minh"
-            className="block py-3 text-sm"
-            onClick={() => setOpen(false)}
-          >
+          <Link href="/lien-he-kia-ho-chi-minh" className="block py-3 text-sm" onClick={() => setOpen(false)}>
             Liên hệ
           </Link>
           <button

@@ -1,13 +1,15 @@
 import { Phone, MapPin, Mail, Clock } from "lucide-react";
 import QuoteForm from "@/components/QuoteForm";
-import { contact } from "@/lib/data";
+import { getCars, getContact } from "@/lib/data";
 
 export const metadata = {
   title: "Liên hệ KIA Hồ Chí Minh – 0931.456.204",
   description: "Liên hệ đại lý KIA HCM để nhận tư vấn và báo giá xe tốt nhất. Địa chỉ: 189 Nguyễn Oanh, Phường 10, Quận Gò Vấp, TP HCM",
 };
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const [cars, contact] = await Promise.all([getCars(), getContact()]);
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Banner */}
@@ -77,7 +79,7 @@ export default function ContactPage() {
           {/* Google Map */}
           <div className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
             <iframe
-              src="https://maps.google.com/maps?q=189+Nguy%E1%BB%85n+Oanh+Ph%C6%B0%E1%BB%9Dng+10+Qu%E1%BA%ADn+G%C3%B2+V%E1%BA%A5p+TP+HCM&output=embed&z=16"
+              src={contact.mapEmbed}
               width="100%" height="300" style={{border:0}} allowFullScreen loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
               title="Bản đồ KIA Hồ Chí Minh"
@@ -96,7 +98,7 @@ export default function ContactPage() {
         {/* Form */}
         <div>
           <h2 className="text-2xl font-black text-[#05141F] mb-6">Gửi yêu cầu tư vấn</h2>
-          <QuoteForm />
+          <QuoteForm cars={cars} />
         </div>
       </div>
     </div>

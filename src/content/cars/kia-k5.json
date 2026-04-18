@@ -1,0 +1,23 @@
+{
+  "name": "KIA K5",
+  "shortName": "K5",
+  "startPrice": "759.000.000 đ",
+  "downPayment": "198.000.000 đ",
+  "image": "https://kia-hcm.com/wp-content/uploads/kia-k5-avatar.png",
+  "heroImage": "https://kia-hcm.com/wp-content/uploads/kia-k5-avatar.png",
+  "category": "sedan",
+  "description": "KIA K5 – Sedan hạng D sang trọng, năng động với thiết kế thể thao và trang bị cao cấp.",
+  "variants": [
+    { "name": "KIA K5 2.0 Luxury", "price": "759.000.000 đ" },
+    { "name": "KIA K5 2.0 Premium", "price": "879.000.000 đ" },
+    { "name": "KIA K5 2.5 GT-Line", "price": "925.000.000 đ" }
+  ],
+  "specs": {
+    "engine": "2.0L MPI / 2.5L GDi",
+    "power": "152 / 194 mã lực",
+    "torque": "192 / 246 Nm",
+    "transmission": "8AT",
+    "seats": "5",
+    "fuel": "Xăng"
+  }
+}

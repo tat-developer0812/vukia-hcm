@@ -3,13 +3,15 @@ import Link from "next/link";
 import { Phone, MapPin, CheckCircle, Star, ArrowRight, Shield, Wrench, CreditCard } from "lucide-react";
 import HeroSlider from "@/components/HeroSlider";
 import QuoteForm from "@/components/QuoteForm";
-import { cars, promotions, contact } from "@/lib/data";
+import { getCars, getPromotions, getContact } from "@/lib/data";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const [cars, promotions, contact] = await Promise.all([getCars(), getPromotions(), getContact()]);
+
   return (
     <>
       <h1 className="sr-only">Showroom Ô Tô KIA Gò Vấp – Đại Lý KIA Chính Hãng Tại TP HCM</h1>
-      <HeroSlider />
+      <HeroSlider cars={cars} />
 
       {/* Quick CTA bar */}
       <div className="bg-[#BB162B] text-white">
@@ -143,7 +145,7 @@ export default function HomePage() {
           <div>
             <span className="text-[#BB162B] text-xs font-bold uppercase tracking-wider">Liên hệ ngay</span>
             <h2 className="text-3xl font-black text-[#05141F] mt-2 mb-6">Tư Vấn & Báo Giá</h2>
-            <QuoteForm />
+            <QuoteForm cars={cars} />
           </div>
           <div>
             <span className="text-[#BB162B] text-xs font-bold uppercase tracking-wider">Showroom</span>
@@ -184,8 +186,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* Floating call button is in layout.tsx */}
     </>
   );
 }

@@ -1,0 +1,26 @@
+{
+  "name": "New KIA Carnival",
+  "shortName": "Carnival",
+  "startPrice": "1.274.000.000 đ",
+  "downPayment": "348.000.000 đ",
+  "image": "https://kia-hcm.com/wp-content/uploads/carnival-avatar.png",
+  "heroImage": "https://kia-hcm.com/wp-content/uploads/carnival-avatar.png",
+  "category": "mpv",
+  "description": "New KIA Carnival – MPV hạng sang 7-8 chỗ đẳng cấp, không gian rộng lớn như xe VIP.",
+  "variants": [
+    { "name": "New Carnival 2.2D Luxury 8S", "price": "1.274.000.000 đ" },
+    { "name": "New Carnival 2.2D Premium 8S", "price": "1.434.000.000 đ" },
+    { "name": "New Carnival 2.2D Premium 7S", "price": "1.474.000.000 đ" },
+    { "name": "New Carnival 2.2D Signature 7S", "price": "1.524.000.000 đ" },
+    { "name": "New Carnival 1.6T Hybrid Premium", "price": "1.519.000.000 đ" },
+    { "name": "New Carnival 1.6T Hybrid", "price": "1.699.000.000 đ" }
+  ],
+  "specs": {
+    "engine": "2.2L CRDi / 1.6T Hybrid",
+    "power": "202 / 230 mã lực",
+    "torque": "441 / 350 Nm",
+    "transmission": "8AT",
+    "seats": "7-8",
+    "fuel": "Dầu / Hybrid"
+  }
+}

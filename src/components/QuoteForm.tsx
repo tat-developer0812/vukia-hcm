@@ -1,16 +1,17 @@
 "use client";
 import { useState } from "react";
 import { Send, Phone } from "lucide-react";
-import { cars } from "@/lib/data";
+import type { Car } from "@/lib/data";
 import Toast from "./Toast";
 
 interface QuoteFormProps {
+  cars: Car[];
   defaultCar?: string;
   compact?: boolean;
   onSuccess?: () => void;
 }
 
-export default function QuoteForm({ defaultCar = "", compact = false, onSuccess }: QuoteFormProps) {
+export default function QuoteForm({ cars, defaultCar = "", compact = false, onSuccess }: QuoteFormProps) {
   const [form, setForm] = useState({ name: "", phone: "", car: defaultCar, note: "" });
   const [toast, setToast] = useState(false);
 
@@ -18,7 +19,6 @@ export default function QuoteForm({ defaultCar = "", compact = false, onSuccess 
     e.preventDefault();
     setToast(true);
     setForm({ name: "", phone: "", car: defaultCar, note: "" });
-    // If inside modal, close it after a short delay so toast is visible
     if (onSuccess) {
       setTimeout(onSuccess, 500);
     }

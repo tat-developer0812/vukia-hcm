@@ -4,14 +4,16 @@ import Link from "next/link";
 import { CheckCircle, ChevronRight, ArrowLeft } from "lucide-react";
 import QuoteForm from "@/components/QuoteForm";
 import QuoteButton from "@/components/QuoteButton";
-import { cars, promotions } from "@/lib/data";
+import { getCars, getPromotions } from "@/lib/data";
 
 export async function generateStaticParams() {
+  const cars = await getCars();
   return cars.map((c) => ({ slug: c.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
+  const cars = await getCars();
   const car = cars.find((c) => c.slug === slug);
   if (!car) return {};
   return {
@@ -22,6 +24,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function CarPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
+  const [cars, promotions] = await Promise.all([getCars(), getPromotions()]);
   const car = cars.find((c) => c.slug === slug);
   if (!car) notFound();
 
@@ -48,9 +51,7 @@ export default async function CarPage({ params }: { params: Promise<{ slug: stri
             {/* Hero */}
             <div className="bg-gradient-to-br from-[#05141F] to-[#0d2137] rounded-2xl p-5 sm:p-8 text-white relative overflow-hidden">
               <div className="absolute top-0 right-0 w-48 h-48 bg-[#BB162B]/10 rounded-full -translate-y-12 translate-x-12 hidden md:block" />
-              {/* Stack on mobile, 2-col on md+ */}
               <div className="flex flex-col md:grid md:grid-cols-2 md:gap-6 md:items-center relative z-10">
-                {/* Image — top on mobile */}
                 <div className="relative h-40 sm:h-48 md:h-56 md:order-2 mb-4 md:mb-0">
                   <Image
                     src={car.heroImage}
@@ -61,7 +62,6 @@ export default async function CarPage({ params }: { params: Promise<{ slug: stri
                     priority
                   />
                 </div>
-                {/* Text */}
                 <div className="md:order-1">
                   <span className="bg-[#BB162B] text-white text-xs px-3 py-1 rounded-full font-bold uppercase">
                     {car.category === "suv" ? "SUV" : car.category === "sedan" ? "Sedan" : car.category === "mpv" ? "MPV" : "Hatchback"}
@@ -82,7 +82,7 @@ export default async function CarPage({ params }: { params: Promise<{ slug: stri
               </div>
             </div>
 
-            {/* Specs quick view */}
+            {/* Specs */}
             <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
               <h2 className="text-lg font-black text-[#05141F] mb-4">Thông số nổi bật</h2>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -147,12 +147,9 @@ export default async function CarPage({ params }: { params: Promise<{ slug: stri
 
           {/* Sidebar */}
           <div className="lg:col-span-1 space-y-6">
-            {/* Form */}
-            {/* top-[94px] = header height 90px + 4px gap */}
             <div className="sticky top-[94px]">
-              <QuoteForm defaultCar={car.slug} />
+              <QuoteForm cars={cars} defaultCar={car.slug} />
 
-              {/* Other cars */}
               <div className="mt-6 bg-white rounded-2xl p-5 border border-gray-100 shadow-sm">
                 <h3 className="font-black text-[#05141F] mb-4 text-sm">Xe khác bạn có thể thích</h3>
                 <div className="space-y-3">
@@ -179,8 +176,6 @@ export default async function CarPage({ params }: { params: Promise<{ slug: stri
           </div>
         </div>
       </div>
-
-      {/* Floating call button is in layout.tsx */}
     </div>
   );
 }

@@ -1,0 +1,22 @@
+{
+  "name": "KIA Morning 2025",
+  "shortName": "Morning",
+  "startPrice": "439.000.000 đ",
+  "downPayment": "132.000.000 đ",
+  "image": "https://kia-hcm.com/wp-content/uploads/new-morning-pngicon-2.png",
+  "heroImage": "https://kia-hcm.com/wp-content/uploads/new-morning-pngicon-2.png",
+  "category": "hatchback",
+  "description": "KIA New Morning 2025 – Hatchback đô thị cỡ nhỏ linh hoạt, tiết kiệm nhiên liệu và dễ dàng di chuyển.",
+  "variants": [
+    { "name": "New Morning AT", "price": "439.000.000 đ" },
+    { "name": "New Morning GT-Line", "price": "469.000.000 đ" }
+  ],
+  "specs": {
+    "engine": "1.2L MPI",
+    "power": "84 mã lực",
+    "torque": "122 Nm",
+    "transmission": "4AT",
+    "seats": "5",
+    "fuel": "Xăng"
+  }
+}

@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import QuoteModal from "@/components/QuoteModal";
 import { ModalProvider } from "@/context/ModalContext";
 import { Phone } from "lucide-react";
-import { contact } from "@/lib/data";
+import { getCars, getContact } from "@/lib/data";
 
 const siteUrl = "https://www.kiagovaphcm.com";
 const siteTitle = "KIA Gò Vấp HCM – Đại Lý KIA Chính Hãng | 0931.456.204";
@@ -64,7 +64,9 @@ const jsonLd = {
   priceRange: "$$",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const [cars, contact] = await Promise.all([getCars(), getContact()]);
+
   return (
     <html lang="vi">
       <head>
@@ -76,8 +78,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <ModalProvider>
-          <Header />
-          {/* header = top bar ~26px + nav 64px = 90px */}
+          <Header cars={cars} />
           <main className="pt-[90px]">{children}</main>
           <Footer />
 
@@ -90,7 +91,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               aria-label="Chat Zalo"
               className="flex items-center gap-2 bg-[#0068FF] text-white px-4 sm:px-5 py-3 rounded-full shadow-2xl hover:bg-[#0057d4] active:scale-95 transition-all font-semibold text-sm"
             >
-              {/* Official Zalo icon — speech bubble with Z bars */}
               <svg width="20" height="20" viewBox="0 0 50 50" fill="currentColor" aria-hidden="true">
                 <path d="M25 4C13.4 4 4 13.4 4 25c0 5.8 2.3 11.1 6.1 15l-2.8 8.4 8.7-2.8c3.2 1.5 6.7 2.4 10 2.4 11.6 0 21-9.4 21-21S36.6 4 25 4zm-8 27v-2.2l10-11H17v-2.8h16v2.2L23 28.2h10V31H17z"/>
               </svg>
@@ -106,8 +106,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </a>
           </div>
 
-          {/* Global modal */}
-          <QuoteModal />
+          <QuoteModal cars={cars} />
         </ModalProvider>
       </body>
     </html>

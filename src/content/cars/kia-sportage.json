@@ -1,0 +1,26 @@
+{
+  "name": "KIA Sportage",
+  "shortName": "Sportage",
+  "startPrice": "819.000.000 đ",
+  "downPayment": "226.000.000 đ",
+  "image": "https://kia-hcm.com/wp-content/uploads/sportage_nau.png",
+  "heroImage": "https://kia-hcm.com/wp-content/uploads/sportage_nau.png",
+  "category": "suv",
+  "description": "KIA Sportage – SUV C-segment đầy phong cách với thiết kế táo bạo, công nghệ an toàn tiên tiến.",
+  "variants": [
+    { "name": "Sportage 2.0G Premium", "price": "819.000.000 đ" },
+    { "name": "Sportage 2.0G Signature", "price": "929.000.000 đ" },
+    { "name": "Sportage 2.0D Signature X-Line", "price": "909.000.000 đ" },
+    { "name": "Sportage 2.0D Signature", "price": "939.000.000 đ" },
+    { "name": "Sportage 1.6T Signature AWD X-Line", "price": "988.000.000 đ" },
+    { "name": "Sportage 1.6T Signature AWD", "price": "1.009.000.000 đ" }
+  ],
+  "specs": {
+    "engine": "2.0L MPI / 2.0L CRDi / 1.6T GDi",
+    "power": "156 / 186 / 177 mã lực",
+    "torque": "192 / 416 / 265 Nm",
+    "transmission": "8AT / 6AT",
+    "seats": "5",
+    "fuel": "Xăng / Dầu"
+  }
+}

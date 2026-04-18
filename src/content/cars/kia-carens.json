@@ -1,0 +1,23 @@
+{
+  "name": "KIA Carens",
+  "shortName": "Carens",
+  "startPrice": "579.000.000 đ",
+  "downPayment": "186.000.000 đ",
+  "image": "https://kia-hcm.com/wp-content/uploads/carens_do-do.png",
+  "heroImage": "https://kia-hcm.com/wp-content/uploads/carens_do-do.png",
+  "category": "mpv",
+  "description": "KIA Carens – MPV 7 chỗ hiện đại, rộng rãi với thiết kế sang trọng và trang bị an toàn toàn diện.",
+  "variants": [
+    { "name": "Carens 1.5G Deluxe", "price": "579.000.000 đ" },
+    { "name": "Carens 1.5G IVT", "price": "589.000.000 đ" },
+    { "name": "Carens 1.5G Lux (mới)", "price": "629.000.000 đ" }
+  ],
+  "specs": {
+    "engine": "1.5L Turbo GDi",
+    "power": "158 mã lực",
+    "torque": "253 Nm",
+    "transmission": "6MT / IVT",
+    "seats": "7",
+    "fuel": "Xăng"
+  }
+}

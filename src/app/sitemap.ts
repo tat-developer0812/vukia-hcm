@@ -1,9 +1,10 @@
 import { MetadataRoute } from "next";
-import { cars } from "@/lib/data";
+import { getCars } from "@/lib/data";
 
 const baseUrl = "https://www.kiagovaphcm.com";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const cars = await getCars();
   const carPages: MetadataRoute.Sitemap = cars.map((car) => ({
     url: `${baseUrl}/${car.slug}`,
     lastModified: new Date(),

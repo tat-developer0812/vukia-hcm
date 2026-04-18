@@ -1,5 +1,6 @@
 import { CheckCircle, Car, Phone } from "lucide-react";
 import QuoteForm from "@/components/QuoteForm";
+import { getCars } from "@/lib/data";
 
 export const metadata = {
   title: "Đăng ký lái thử xe KIA – Miễn phí tại TP.HCM",
@@ -15,7 +16,9 @@ const benefits = [
   "Nhận báo giá ưu đãi ngay sau buổi lái thử",
 ];
 
-export default function TestDrivePage() {
+export default async function TestDrivePage() {
+  const cars = await getCars();
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="bg-gradient-to-r from-[#05141F] to-[#0d2137] py-16 px-4 text-white text-center">
@@ -54,7 +57,7 @@ export default function TestDrivePage() {
         {/* Form */}
         <div>
           <h2 className="text-2xl font-black text-[#05141F] mb-6">Đăng ký ngay</h2>
-          <QuoteForm />
+          <QuoteForm cars={cars} />
         </div>
       </div>
     </div>

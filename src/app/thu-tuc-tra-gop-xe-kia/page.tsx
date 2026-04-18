@@ -1,5 +1,6 @@
 import { CreditCard, CheckCircle, Phone, FileText } from "lucide-react";
 import QuoteForm from "@/components/QuoteForm";
+import { getCars } from "@/lib/data";
 
 export const metadata = {
   title: "Thủ tục trả góp xe KIA – Lãi suất 0% | KIA HCM",
@@ -22,7 +23,8 @@ const docs = [
   "Giấy tờ tài sản thế chấp (nếu có)",
 ];
 
-export default function FinancingPage() {
+export default async function FinancingPage() {
+  const cars = await getCars();
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="bg-gradient-to-r from-[#05141F] to-[#0d2137] py-16 px-4 text-white text-center">
@@ -96,7 +98,7 @@ export default function FinancingPage() {
           {/* Form */}
           <div>
             <h2 className="text-2xl font-black text-[#05141F] mb-6">Tư vấn trả góp miễn phí</h2>
-            <QuoteForm />
+            <QuoteForm cars={cars} />
           </div>
         </div>
       </div>
