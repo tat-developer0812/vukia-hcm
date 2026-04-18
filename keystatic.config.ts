@@ -1,8 +1,8 @@
 import { config, collection, singleton, fields } from "@keystatic/core";
 
 export default config({
-  storage: process.env.KEYSTATIC_GITHUB_CLIENT_ID
-    ? { kind: "github" as const, repo: { owner: process.env.GITHUB_OWNER!, name: process.env.GITHUB_REPO! } }
+  storage: process.env.NEXT_PUBLIC_GITHUB_OWNER
+    ? { kind: "github" as const, repo: { owner: process.env.NEXT_PUBLIC_GITHUB_OWNER, name: process.env.NEXT_PUBLIC_GITHUB_REPO! } }
     : { kind: "local" as const },
   ui: {
     brand: { name: "KIA Gò Vấp Admin" },
