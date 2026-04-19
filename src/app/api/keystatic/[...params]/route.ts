@@ -6,19 +6,23 @@ import { serialize, parse } from "cookie";
 
 const keystaticHandler = makeRouteHandler({ config });
 
-const COOKIE_OPTIONS = {
-  httpOnly: true,
+const BASE_COOKIE = {
   secure: process.env.NODE_ENV === "production",
   sameSite: "lax" as const,
   path: "/",
   maxAge: 60 * 60 * 24 * 30, // 30 days
 };
 
+// Access token must be readable by client JS — Keystatic UI reads it via document.cookie
+const ACCESS_TOKEN_COOKIE = { ...BASE_COOKIE };
+// Refresh token stays server-only
+const REFRESH_TOKEN_COOKIE = { ...BASE_COOKIE, httpOnly: true };
+
 async function handler(request: Request): Promise<Response> {
   const url = new URL(request.url);
   const path = url.pathname;
 
-  // Custom OAuth callback — works without expiring tokens
+  // Custom OAuth callback — works without expiring tokens (no refresh_token from GitHub)
   if (path.includes("github/oauth/callback")) {
     const code = url.searchParams.get("code");
     const state = url.searchParams.get("state");
@@ -41,8 +45,8 @@ async function handler(request: Request): Promise<Response> {
     }
 
     const headers = new Headers();
-    headers.append("Set-Cookie", serialize("keystatic-gh-access-token", data.access_token, COOKIE_OPTIONS));
-    headers.append("Set-Cookie", serialize("keystatic-gh-refresh-token", data.access_token, COOKIE_OPTIONS));
+    headers.append("Set-Cookie", serialize("keystatic-gh-access-token", data.access_token, ACCESS_TOKEN_COOKIE));
+    headers.append("Set-Cookie", serialize("keystatic-gh-refresh-token", data.access_token, REFRESH_TOKEN_COOKIE));
 
     if (state === "close") {
       headers.set("Content-Type", "text/html");
@@ -59,14 +63,13 @@ async function handler(request: Request): Promise<Response> {
   // Override refresh-token — non-expiring tokens don't need refreshing
   if (path.includes("github/refresh-token")) {
     const cookies = parse(request.headers.get("cookie") ?? "");
-    const accessToken = cookies["keystatic-gh-access-token"];
+    const accessToken = cookies["keystatic-gh-access-token"] ?? cookies["keystatic-gh-refresh-token"];
 
     if (!accessToken) return new Response("Unauthorized", { status: 401 });
 
-    // Re-set the same access token to extend session
     const headers = new Headers();
-    headers.append("Set-Cookie", serialize("keystatic-gh-access-token", accessToken, COOKIE_OPTIONS));
-    headers.append("Set-Cookie", serialize("keystatic-gh-refresh-token", accessToken, COOKIE_OPTIONS));
+    headers.append("Set-Cookie", serialize("keystatic-gh-access-token", accessToken, ACCESS_TOKEN_COOKIE));
+    headers.append("Set-Cookie", serialize("keystatic-gh-refresh-token", accessToken, REFRESH_TOKEN_COOKIE));
     headers.set("Content-Type", "application/json");
     return new Response(JSON.stringify({ ok: true }), { status: 200, headers });
   }
