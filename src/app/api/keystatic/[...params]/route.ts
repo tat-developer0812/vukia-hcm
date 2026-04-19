@@ -22,6 +22,16 @@ async function handler(request: Request): Promise<Response> {
   const url = new URL(request.url);
   const path = url.pathname;
 
+  // Override login — Keystatic's default doesn't request scopes (built for GitHub Apps).
+  // Basic OAuth Apps need explicit scope=repo to commit via GraphQL.
+  if (path.includes("github/login")) {
+    const authorize = new URL("https://github.com/login/oauth/authorize");
+    authorize.searchParams.set("client_id", process.env.KEYSTATIC_GITHUB_CLIENT_ID!);
+    authorize.searchParams.set("redirect_uri", `${url.origin}/api/keystatic/github/oauth/callback`);
+    authorize.searchParams.set("scope", "repo");
+    return new Response(null, { status: 307, headers: { Location: authorize.toString() } });
+  }
+
   // Custom OAuth callback — works without expiring tokens (no refresh_token from GitHub)
   if (path.includes("github/oauth/callback")) {
     const code = url.searchParams.get("code");
