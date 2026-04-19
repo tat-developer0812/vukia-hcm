@@ -67,7 +67,9 @@ const CONTACT_QUERY = `*[_id == "contact"][0]{
   name, fullName, address, hotline, phone, email, hours, consultant, mapEmbed
 }`;
 
-const FETCH_OPTS = { next: { revalidate: 60 } } as const;
+const CARS_OPTS = { next: { revalidate: 60, tags: ["cars"] } };
+const PROMOTIONS_OPTS = { next: { revalidate: 60, tags: ["promotions"] } };
+const CONTACT_OPTS = { next: { revalidate: 60, tags: ["contact"] } };
 
 type RawCar = Omit<Car, "variants" | "specs"> & {
   variants: CarVariant[] | null;
@@ -75,7 +77,7 @@ type RawCar = Omit<Car, "variants" | "specs"> & {
 };
 
 export async function getCars(): Promise<Car[]> {
-  const cars = await client.fetch<RawCar[]>(CARS_QUERY, {}, FETCH_OPTS);
+  const cars = await client.fetch<RawCar[]>(CARS_QUERY, {}, CARS_OPTS);
   return (cars ?? []).map((c) => ({
     ...c,
     variants: c.variants ?? [],
@@ -84,12 +86,12 @@ export async function getCars(): Promise<Car[]> {
 }
 
 export async function getPromotions(): Promise<string[]> {
-  const items = await client.fetch<string[] | null>(PROMOTIONS_QUERY, {}, FETCH_OPTS);
+  const items = await client.fetch<string[] | null>(PROMOTIONS_QUERY, {}, PROMOTIONS_OPTS);
   return items ?? [];
 }
 
 export async function getContact(): Promise<Contact> {
-  const data = await client.fetch<Contact | null>(CONTACT_QUERY, {}, FETCH_OPTS);
+  const data = await client.fetch<Contact | null>(CONTACT_QUERY, {}, CONTACT_OPTS);
   return (
     data ?? {
       name: "",
