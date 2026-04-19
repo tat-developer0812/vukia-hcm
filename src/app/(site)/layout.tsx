@@ -68,13 +68,11 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
 
   return (
     <>
-      <head>
-        <link rel="llms" href="/llms.txt" />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-      </head>
+      <link rel="llms" href="/llms.txt" />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <ModalProvider>
         <Header cars={cars} />
         <main className="pt-[90px]">{children}</main>
