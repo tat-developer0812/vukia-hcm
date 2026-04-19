@@ -1,5 +1,4 @@
-import { createReader } from "@keystatic/core/reader";
-import config from "../../keystatic.config";
+import { client } from "../sanity/client";
 
 export interface CarVariant {
   name: string;
@@ -27,41 +26,81 @@ export interface Car {
   };
 }
 
-const reader = createReader(process.cwd(), config);
+export interface Contact {
+  name: string;
+  fullName: string;
+  address: string;
+  hotline: string;
+  phone: string;
+  email: string;
+  hours: string;
+  consultant: string;
+  mapEmbed: string;
+}
+
+const CARS_QUERY = `*[_type == "car"] | order(order asc, shortName asc) {
+  "slug": slug.current,
+  name,
+  shortName,
+  startPrice,
+  downPayment,
+  image,
+  heroImage,
+  category,
+  description,
+  "variants": variants[]{ name, price },
+  specs
+}`;
+
+const EMPTY_SPECS: Car["specs"] = {
+  engine: "",
+  power: "",
+  torque: "",
+  transmission: "",
+  seats: "",
+  fuel: "",
+};
+
+const PROMOTIONS_QUERY = `*[_id == "promotions"][0].items`;
+
+const CONTACT_QUERY = `*[_id == "contact"][0]{
+  name, fullName, address, hotline, phone, email, hours, consultant, mapEmbed
+}`;
+
+const FETCH_OPTS = { next: { revalidate: 60 } } as const;
+
+type RawCar = Omit<Car, "variants" | "specs"> & {
+  variants: CarVariant[] | null;
+  specs: Car["specs"] | null;
+};
 
 export async function getCars(): Promise<Car[]> {
-  const entries = await reader.collections.cars.all();
-  return entries.map((entry) => ({
-    slug: entry.slug,
-    name: entry.entry.name,
-    shortName: entry.entry.shortName,
-    startPrice: entry.entry.startPrice,
-    downPayment: entry.entry.downPayment,
-    image: entry.entry.image,
-    heroImage: entry.entry.heroImage,
-    category: entry.entry.category as Car["category"],
-    description: entry.entry.description,
-    variants: entry.entry.variants as CarVariant[],
-    specs: entry.entry.specs,
+  const cars = await client.fetch<RawCar[]>(CARS_QUERY, {}, FETCH_OPTS);
+  return (cars ?? []).map((c) => ({
+    ...c,
+    variants: c.variants ?? [],
+    specs: c.specs ?? EMPTY_SPECS,
   }));
 }
 
 export async function getPromotions(): Promise<string[]> {
-  const data = await reader.singletons.promotions.read();
-  return [...(data?.items ?? [])];
+  const items = await client.fetch<string[] | null>(PROMOTIONS_QUERY, {}, FETCH_OPTS);
+  return items ?? [];
 }
 
-export async function getContact() {
-  const data = await reader.singletons.contact.read();
-  return data ?? {
-    name: "",
-    fullName: "",
-    address: "",
-    hotline: "",
-    phone: "",
-    email: "",
-    hours: "",
-    consultant: "",
-    mapEmbed: "",
-  };
+export async function getContact(): Promise<Contact> {
+  const data = await client.fetch<Contact | null>(CONTACT_QUERY, {}, FETCH_OPTS);
+  return (
+    data ?? {
+      name: "",
+      fullName: "",
+      address: "",
+      hotline: "",
+      phone: "",
+      email: "",
+      hours: "",
+      consultant: "",
+      mapEmbed: "",
+    }
+  );
 }

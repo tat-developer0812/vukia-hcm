@@ -1,15 +1,16 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  outputFileTracingIncludes: {
-    "/**": ["./src/content/**/*"],
-  },
   images: {
     remotePatterns: [
       {
         protocol: "https",
         hostname: "kia-hcm.com",
         pathname: "/wp-content/uploads/**",
+      },
+      {
+        protocol: "https",
+        hostname: "cdn.sanity.io",
       },
     ],
     unoptimized: true,
