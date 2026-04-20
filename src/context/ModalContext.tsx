@@ -16,6 +16,7 @@ export function ModalProvider({ children }: { children: ReactNode }) {
   const [defaultCar, setDefaultCar] = useState<string | undefined>();
 
   const openModal = (carSlug?: string, source?: string) => {
+    if (isOpen) return;
     trackEvent("quote_modal_open", {
       car: carSlug ?? "none",
       source: source ?? "unknown",
