@@ -5,6 +5,7 @@ import Image from "next/image";
 import { ChevronLeft, ChevronRight, Phone } from "lucide-react";
 import type { Car } from "@/lib/data";
 import { useModal } from "@/context/ModalContext";
+import { trackEvent } from "@/lib/analytics";
 
 const HERO_SLUGS = [
   { slug: "new-kia-carnival", tagline: "Đẳng cấp gia đình", badge: "MPV Hạng sang", bg: "from-[#05141F] to-[#1a3a5c]" },
@@ -83,7 +84,13 @@ export default function HeroSlider({ cars }: { cars: Car[] }) {
                 Xem chi tiết
               </Link>
               <button
-                onClick={() => openModal(slide.car.slug, "hero_slider")}
+                onClick={() => {
+                  trackEvent("hero_quote_click", {
+                    car: slide.car.slug,
+                    slide_index: String(current),
+                  });
+                  openModal(slide.car.slug, "hero_slider");
+                }}
                 className="flex items-center gap-1.5 border border-white/70 text-white hover:bg-white hover:text-[#05141F] px-5 py-2.5 rounded-full font-bold text-sm transition-colors"
               >
                 <Phone size={13} />
