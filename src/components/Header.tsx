@@ -5,6 +5,7 @@ import { Menu, X, Phone, ChevronDown } from "lucide-react";
 import type { Car } from "@/lib/data";
 import Logo from "@/components/Logo";
 import { useModal } from "@/context/ModalContext";
+import { trackEvent } from "@/lib/analytics";
 
 export default function Header({ cars }: { cars: Car[] }) {
   const [open, setOpen] = useState(false);
@@ -33,6 +34,7 @@ export default function Header({ cars }: { cars: Car[] }) {
           <div className="flex items-center gap-4 text-xs w-full md:w-auto justify-center md:justify-end">
             <a
               href="tel:0931456204"
+              onClick={() => trackEvent("phone_click", { location: "header" })}
               className="flex items-center gap-1.5 hover:text-[#BB162B] transition-colors"
             >
               <Phone size={13} />
