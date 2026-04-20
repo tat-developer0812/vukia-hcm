@@ -57,7 +57,7 @@ export default async function TestDrivePage() {
         {/* Form */}
         <div>
           <h2 className="text-2xl font-black text-[#05141F] mb-6">Đăng ký ngay</h2>
-          <QuoteForm cars={cars} />
+          <QuoteForm cars={cars} page="test_drive" />
         </div>
       </div>
     </div>

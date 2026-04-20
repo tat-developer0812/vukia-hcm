@@ -148,7 +148,7 @@ export default async function CarPage({ params }: { params: Promise<{ slug: stri
           {/* Sidebar */}
           <div className="lg:col-span-1 space-y-6">
             <div className="sticky top-[94px]">
-              <QuoteForm cars={cars} defaultCar={car.slug} />
+              <QuoteForm cars={cars} defaultCar={car.slug} page="car_detail" />
 
               <div className="mt-6 bg-white rounded-2xl p-5 border border-gray-100 shadow-sm">
                 <h3 className="font-black text-[#05141F] mb-4 text-sm">Xe khác bạn có thể thích</h3>

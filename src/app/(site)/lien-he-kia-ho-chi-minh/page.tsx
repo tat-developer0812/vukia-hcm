@@ -98,7 +98,7 @@ export default async function ContactPage() {
         {/* Form */}
         <div>
           <h2 className="text-2xl font-black text-[#05141F] mb-6">Gửi yêu cầu tư vấn</h2>
-          <QuoteForm cars={cars} />
+          <QuoteForm cars={cars} page="contact" />
         </div>
       </div>
     </div>

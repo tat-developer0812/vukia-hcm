@@ -145,7 +145,7 @@ export default async function HomePage() {
           <div>
             <span className="text-[#BB162B] text-xs font-bold uppercase tracking-wider">Liên hệ ngay</span>
             <h2 className="text-3xl font-black text-[#05141F] mt-2 mb-6">Tư Vấn & Báo Giá</h2>
-            <QuoteForm cars={cars} />
+            <QuoteForm cars={cars} page="homepage" />
           </div>
           <div>
             <span className="text-[#BB162B] text-xs font-bold uppercase tracking-wider">Showroom</span>

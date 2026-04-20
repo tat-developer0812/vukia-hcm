@@ -3,20 +3,23 @@ import { useState } from "react";
 import { Send, Phone } from "lucide-react";
 import type { Car } from "@/lib/data";
 import Toast from "./Toast";
+import { trackEvent } from "@/lib/analytics";
 
 interface QuoteFormProps {
   cars: Car[];
   defaultCar?: string;
   compact?: boolean;
+  page?: string;
   onSuccess?: () => void;
 }
 
-export default function QuoteForm({ cars, defaultCar = "", compact = false, onSuccess }: QuoteFormProps) {
+export default function QuoteForm({ cars, defaultCar = "", compact = false, page = "unknown", onSuccess }: QuoteFormProps) {
   const [form, setForm] = useState({ name: "", phone: "", car: defaultCar, note: "" });
   const [toast, setToast] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    trackEvent("quote_form_submit", { car: form.car || "none", page });
     setToast(true);
     setForm({ name: "", phone: "", car: defaultCar, note: "" });
     if (onSuccess) {
@@ -106,6 +109,7 @@ export default function QuoteForm({ cars, defaultCar = "", compact = false, onSu
           </button>
           <a
             href="tel:0931456204"
+            onClick={() => trackEvent("phone_click", { location: "quote_form" })}
             className="w-full border border-[#05141F] text-[#05141F] hover:bg-[#05141F] hover:text-white py-3 rounded-lg font-semibold flex items-center justify-center gap-2 transition-colors text-sm"
           >
             <Phone size={16} />

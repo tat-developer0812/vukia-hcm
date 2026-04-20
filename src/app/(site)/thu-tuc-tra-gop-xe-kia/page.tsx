@@ -98,7 +98,7 @@ export default async function FinancingPage() {
           {/* Form */}
           <div>
             <h2 className="text-2xl font-black text-[#05141F] mb-6">Tư vấn trả góp miễn phí</h2>
-            <QuoteForm cars={cars} />
+            <QuoteForm cars={cars} page="financing" />
           </div>
         </div>
       </div>
