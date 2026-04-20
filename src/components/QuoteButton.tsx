@@ -12,7 +12,7 @@ export default function QuoteButton({ carSlug, className, label = "Báo giá nga
   const { openModal } = useModal();
   return (
     <button
-      onClick={() => openModal(carSlug)}
+      onClick={() => openModal(carSlug, "quote_button")}
       className={className ?? "bg-[#BB162B] hover:bg-[#9a1022] text-white px-4 py-2.5 rounded-full font-bold text-sm flex items-center gap-2 transition-colors"}
     >
       <Phone size={14} /> {label}

@@ -93,7 +93,7 @@ export default function Header({ cars }: { cars: Car[] }) {
 
         <div className="hidden lg:flex items-center gap-3">
           <button
-            onClick={() => openModal()}
+            onClick={() => openModal(undefined, "header")}
             className="flex items-center gap-2 bg-[#BB162B] text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-[#9a1022] transition-colors"
           >
             <Phone size={14} />
@@ -141,7 +141,7 @@ export default function Header({ cars }: { cars: Car[] }) {
             Liên hệ
           </Link>
           <button
-            onClick={() => { setOpen(false); openModal(); }}
+            onClick={() => { setOpen(false); openModal(undefined, "header"); }}
             className="mt-4 w-full flex items-center justify-center gap-2 bg-[#BB162B] text-white px-4 py-3 rounded-full text-sm font-semibold"
           >
             <Phone size={14} />

@@ -83,7 +83,7 @@ export default function HeroSlider({ cars }: { cars: Car[] }) {
                 Xem chi tiết
               </Link>
               <button
-                onClick={() => openModal(slide.car.slug)}
+                onClick={() => openModal(slide.car.slug, "hero_slider")}
                 className="flex items-center gap-1.5 border border-white/70 text-white hover:bg-white hover:text-[#05141F] px-5 py-2.5 rounded-full font-bold text-sm transition-colors"
               >
                 <Phone size={13} />

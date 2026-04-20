@@ -1,10 +1,11 @@
 "use client";
 import { createContext, useContext, useState, ReactNode } from "react";
+import { trackEvent } from "@/lib/analytics";
 
 interface ModalContextType {
   isOpen: boolean;
   defaultCar?: string;
-  openModal: (carSlug?: string) => void;
+  openModal: (carSlug?: string, source?: string) => void;
   closeModal: () => void;
 }
 
@@ -14,7 +15,11 @@ export function ModalProvider({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
   const [defaultCar, setDefaultCar] = useState<string | undefined>();
 
-  const openModal = (carSlug?: string) => {
+  const openModal = (carSlug?: string, source?: string) => {
+    trackEvent("quote_modal_open", {
+      car: carSlug ?? "none",
+      source: source ?? "unknown",
+    });
     setDefaultCar(carSlug);
     setIsOpen(true);
   };
