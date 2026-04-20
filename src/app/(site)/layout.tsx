@@ -15,6 +15,7 @@ export const metadata: Metadata = {
   title: siteTitle,
   description: siteDescription,
   keywords: "KIA Gò Vấp, đại lý KIA HCM, mua xe KIA, KIA Seltos, KIA Sonet, KIA Carens",
+  verification: { google: "rfHNUkXMO37XwoZ7lfhEw0rWeZfsEIc7U3MSx03TN2w" },
   robots: { index: true, follow: true },
   alternates: { canonical: siteUrl },
   icons: {
