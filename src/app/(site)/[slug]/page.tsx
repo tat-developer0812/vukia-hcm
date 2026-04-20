@@ -4,6 +4,7 @@ import Link from "next/link";
 import { CheckCircle, ChevronRight, ArrowLeft } from "lucide-react";
 import QuoteForm from "@/components/QuoteForm";
 import QuoteButton from "@/components/QuoteButton";
+import CarDetailTracker from "@/components/CarDetailTracker";
 import { getCars, getPromotions } from "@/lib/data";
 
 export async function generateStaticParams() {
@@ -42,6 +43,8 @@ export default async function CarPage({ params }: { params: Promise<{ slug: stri
           <span className="text-[#05141F] font-semibold">{car.name}</span>
         </div>
       </div>
+
+      <CarDetailTracker car={slug} />
 
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
