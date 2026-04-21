@@ -3,7 +3,7 @@ import QuoteForm from "@/components/QuoteForm";
 import { getCars } from "@/lib/data";
 
 export const metadata = {
-  title: "Thủ tục trả góp xe KIA – Lãi suất 0% | KIA HCM",
+  title: "Thủ tục trả góp xe KIA – Lãi suất thấp | KIA HCM",
   description: "Hướng dẫn thủ tục trả góp mua xe KIA tại TP.HCM. Lãi suất ưu đãi, thủ tục đơn giản, duyệt nhanh.",
 };
 
@@ -16,7 +16,6 @@ const steps = [
 
 const docs = [
   "CMND/CCCD bản gốc + 2 bản photo",
-  "Hộ khẩu/KT3 bản gốc + 2 bản photo",
   "Giấy đăng ký kết hôn (nếu có)",
   "Xác nhận thu nhập / Hợp đồng lao động",
   "Sao kê tài khoản 3-6 tháng gần nhất",
@@ -31,7 +30,7 @@ export default async function FinancingPage() {
         <h1 className="text-4xl font-black mb-2">Thủ Tục Trả Góp Xe KIA</h1>
         <div className="w-14 h-1 bg-[#BB162B] mx-auto mt-3 mb-4" />
         <p className="text-gray-300 text-sm max-w-md mx-auto">
-          Hỗ trợ vay trả góp lên đến 80% giá trị xe – Lãi suất ưu đãi – Thủ tục đơn giản
+          Hỗ trợ vay trả góp lên đến 85% giá trị xe – Lãi suất ưu đãi – Thủ tục đơn giản
         </p>
       </div>
 
@@ -81,7 +80,7 @@ export default async function FinancingPage() {
                 <h3 className="font-black">Ưu đãi tài chính</h3>
               </div>
               <div className="space-y-2">
-                {["Lãi suất 0% trong 12 tháng đầu", "Vay tối đa 80% giá trị xe", "Thời hạn vay 12–84 tháng", "Duyệt hồ sơ nhanh trong 24 giờ", "Liên kết 10+ ngân hàng lớn"].map((item, i) => (
+                {["Lãi suất ưu đãi", "Vay tối đa 85% giá trị xe", "Thời hạn vay 12–96 tháng", "Duyệt hồ sơ nhanh trong 15 phút", "Liên kết 10+ ngân hàng lớn"].map((item, i) => (
                   <div key={i} className="flex items-center gap-2">
                     <CheckCircle size={15} className="text-[#BB162B]" />
                     <span className="text-sm text-gray-200">{item}</span>

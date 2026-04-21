@@ -23,7 +23,7 @@ export default async function HomePage() {
             <Star size={15} /> Đăng ký lái thử miễn phí
           </Link>
           <Link href="/thu-tuc-tra-gop-xe-kia" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-            <CreditCard size={15} /> Trả góp 0% lãi suất
+            <CreditCard size={15} /> Trả góp lãi suất thấp
           </Link>
         </div>
       </div>
@@ -119,7 +119,7 @@ export default async function HomePage() {
               {
                 icon: <CreditCard className="w-10 h-10 text-[#BB162B]" />,
                 title: "Hỗ trợ tài chính",
-                desc: "Trả góp lãi suất 0%, thủ tục đơn giản. Hỗ trợ đăng ký và giao xe tận nơi.",
+                desc: "Trả góp lãi suất thấp, thủ tục đơn giản. Hỗ trợ đăng ký và giao xe tận nơi.",
               },
               {
                 icon: <Wrench className="w-10 h-10 text-[#BB162B]" />,
