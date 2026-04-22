@@ -12,7 +12,7 @@ export default async function Footer() {
         {/* Brand */}
         <div>
           <div className="mb-4">
-            <Logo variant="light" size="md" />
+            <Logo variant="light" size="lg" />
           </div>
           <p className="text-gray-300 text-sm leading-relaxed mb-4">{contact.fullName}</p>
           <p className="text-xs text-gray-400">

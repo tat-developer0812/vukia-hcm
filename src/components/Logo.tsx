@@ -4,54 +4,25 @@ interface LogoProps {
 }
 
 export default function Logo({ variant = "dark", size = "md" }: LogoProps) {
-  const h = size === "sm" ? 32 : size === "lg" ? 48 : 40;
-  const w = Math.round(h * 3.8);
-  const kiaColor = variant === "light" ? "#FFFFFF" : "#05141F";
-  const subColor = "#BB162B";
+  // Header h-16 (64px) → md=40 cho breathing room ~12px mỗi bên
+  const h = size === "sm" ? 28 : size === "lg" ? 52 : 40;
+  const w = h * 4; // viewBox 100:25 = 4:1
+  const fill = variant === "light" ? "#FFFFFF" : "#131E29";
 
   return (
-    <svg width={w} height={h} viewBox="0 0 152 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="KIA Hồ Chí Minh">
-      {/* Red left accent bars */}
-      <rect x="0" y="4" width="5" height="32" rx="2.5" fill={subColor} />
-      <rect x="8" y="10" width="3" height="20" rx="1.5" fill={subColor} opacity="0.5" />
-
-      {/* KIA wordmark */}
-      <text
-        x="18" y="28"
-        fontFamily="'Arial Black', 'Arial', sans-serif"
-        fontSize="26"
-        fontWeight="900"
-        fontStyle="italic"
-        fill={kiaColor}
-        letterSpacing="-1"
-      >
-        KIA
-      </text>
-
-      {/* Divider */}
-      <line x1="72" y1="8" x2="72" y2="32" stroke={subColor} strokeWidth="1.5" opacity="0.4" />
-
-      {/* Dealership name */}
-      <text
-        x="78" y="17"
-        fontFamily="'Arial', sans-serif"
-        fontSize="8.5"
-        fontWeight="700"
-        fill={subColor}
-        letterSpacing="1.5"
-      >
-        HỒ CHÍ MINH
-      </text>
-      <text
-        x="78" y="30"
-        fontFamily="'Arial', sans-serif"
-        fontSize="7.5"
-        fontWeight="500"
-        fill={variant === "light" ? "rgba(255,255,255,0.7)" : "#64748b"}
-        letterSpacing="0.5"
-      >
-        Đại lý chính hãng
-      </text>
+    <svg
+      width={w}
+      height={h}
+      viewBox="0 0 100 25"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-label="KIA"
+    >
+      <path
+        fill={fill}
+        fillRule="nonzero"
+        stroke="none"
+        d="M58.02 21.83c0 .19.06.3.17.3.09-.01.17-.05.24-.1L89.6 1.8a3 3 0 011.8-.54h6.85c1.05 0 1.76.7 1.76 1.75v13.08c0 1.58-.35 2.5-1.75 3.34l-8.31 5a.57.57 0 01-.28.1c-.1 0-.2-.08-.2-.37V8.9c0-.18-.05-.3-.17-.3a.47.47 0 00-.24.1l-22.78 14.8c-.52.35-1.13.54-1.75.53h-15.1c-1.06 0-1.76-.7-1.76-1.76V3.42c0-.14-.06-.27-.18-.27a.49.49 0 00-.24.1l-15.03 9.02c-.15.1-.19.17-.19.24 0 .06.03.12.13.23L42.9 23.47c.14.14.24.25.24.37 0 .1-.16.18-.35.18h-9.7c-.76 0-1.35-.11-1.76-.52L24.82 17a.28.28 0 00-.2-.1.43.43 0 00-.2.06L13.54 23.5c-.66.4-1.11.51-1.76.51H1.77C.7 24.02 0 23.31 0 22.26V9.43c0-1.59.35-2.5 1.76-3.34l8.36-5.02a.43.43 0 01.22-.07c.13 0 .2.13.2.42V18.6c0 .18.04.26.17.26.09-.01.17-.05.25-.1L39.2 1.77c.54-.37 1.2-.55 1.86-.52h15.2c1.05 0 1.76.7 1.76 1.75l-.01 18.83z"
+      />
     </svg>
   );
 }
