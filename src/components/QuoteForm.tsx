@@ -13,15 +13,42 @@ interface QuoteFormProps {
   onSuccess?: () => void;
 }
 
-export default function QuoteForm({ cars, defaultCar = "", compact = false, page = "unknown", onSuccess }: QuoteFormProps) {
-  const [form, setForm] = useState({ name: "", phone: "", car: defaultCar, note: "" });
+export default function QuoteForm({
+  cars,
+  defaultCar = "",
+  compact = false,
+  page = "unknown",
+  onSuccess,
+}: QuoteFormProps) {
+  const [form, setForm] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    car: defaultCar,
+    note: "",
+  });
+  const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
+
+    try {
+      await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...form, page }),
+      });
+    } catch {
+      // Silent fail — toast still shows so UX is not broken
+    }
+
     trackEvent("quote_form_submit", { car: form.car || "none", page });
     setToast(true);
-    setForm({ name: "", phone: "", car: defaultCar, note: "" });
+    setForm({ name: "", phone: "", email: "", car: defaultCar, note: "" });
+    setLoading(false);
+
     if (onSuccess) {
       setTimeout(onSuccess, 500);
     }
@@ -72,6 +99,17 @@ export default function QuoteForm({ cars, defaultCar = "", compact = false, page
             />
           </div>
           <div>
+            <label htmlFor="quote-email" className="sr-only">Email</label>
+            <input
+              id="quote-email"
+              type="email"
+              placeholder="Email (tùy chọn)"
+              value={form.email}
+              onChange={(e) => setForm({ ...form, email: e.target.value })}
+              className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#BB162B] focus:ring-2 focus:ring-red-100 transition"
+            />
+          </div>
+          <div>
             <label htmlFor="quote-car" className="sr-only">Dòng xe</label>
             <select
               id="quote-car"
@@ -102,10 +140,11 @@ export default function QuoteForm({ cars, defaultCar = "", compact = false, page
           )}
           <button
             type="submit"
-            className="w-full bg-[#BB162B] hover:bg-[#9a1022] text-white py-3 rounded-lg font-semibold flex items-center justify-center gap-2 transition-colors text-sm"
+            disabled={loading}
+            className="w-full bg-[#BB162B] hover:bg-[#9a1022] disabled:opacity-60 text-white py-3 rounded-lg font-semibold flex items-center justify-center gap-2 transition-colors text-sm"
           >
             <Send size={16} />
-            Nhận báo giá
+            {loading ? "Đang gửi..." : "Nhận báo giá"}
           </button>
           <a
             href="tel:0931456204"

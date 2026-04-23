@@ -174,7 +174,7 @@ export default async function HomePage() {
                 <p className="text-sm font-semibold text-[#05141F]">189 Nguyễn Oanh</p>
                 <p className="text-xs text-gray-500 mt-1">Phường 10, Quận Gò Vấp, TP HCM</p>
                 <a
-                  href="https://maps.google.com/?q=189+Nguyễn+Oanh+Phường+10+Quận+Gò+Vấp+TP+HCM"
+                  href="https://maps.app.goo.gl/UUAFA73y673nzSfb8"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-xs text-[#BB162B] font-bold mt-2 inline-block border border-[#BB162B] px-3 py-1 rounded-full hover:bg-[#BB162B] hover:text-white transition-colors"
