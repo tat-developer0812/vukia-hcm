@@ -70,7 +70,7 @@ export default async function Footer() {
               <div>
                 <span className="text-gray-300 text-sm">{contact.address}</span>
                 <a
-                  href="https://maps.google.com/maps?q=189+Nguy%E1%BB%85n+Oanh+Ph%C6%B0%E1%BB%9Dng+10+Qu%E1%BA%ADn+G%C3%B2+V%E1%BA%A5p+TP+HCM"
+                  href="https://maps.app.goo.gl/UUAFA73y673nzSfb8"
                   target="_blank" rel="noopener noreferrer"
                   className="block text-xs text-[#BB162B] hover:underline mt-0.5"
                 >

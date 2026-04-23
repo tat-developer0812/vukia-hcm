@@ -19,8 +19,8 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
   alternates: { canonical: siteUrl },
   icons: {
-    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
-    shortcut: "/favicon.svg",
+    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }, { url: "/favicon.ico" }],
+    shortcut: "/favicon.ico",
     apple: "/favicon.svg",
   },
   openGraph: {

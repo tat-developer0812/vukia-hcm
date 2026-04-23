@@ -86,7 +86,7 @@ export default async function ContactPage() {
             />
             <div className="px-5 py-3 flex items-center justify-between border-t border-gray-100">
               <p className="text-sm text-gray-500">{contact.address}</p>
-              <a href="https://maps.google.com/maps?q=189+Nguy%E1%BB%85n+Oanh+Ph%C6%B0%E1%BB%9Dng+10+Qu%E1%BA%ADn+G%C3%B2+V%E1%BA%A5p+TP+HCM"
+              <a href="https://maps.app.goo.gl/UUAFA73y673nzSfb8"
                 target="_blank" rel="noopener noreferrer"
                 className="shrink-0 ml-4 text-xs font-bold text-[#BB162B] hover:underline">
                 Chỉ đường →
