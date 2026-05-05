@@ -24,8 +24,9 @@ export async function sendLeadNotification(lead: LeadEmailData): Promise<void> {
     car_detail: "Chi tiết xe",
   };
 
+  const from = process.env.RESEND_FROM ?? "KIA HCM <onboarding@resend.dev>";
   await resend.emails.send({
-    from: "KIA HCM <noreply@kiagovaphcm.com>",
+    from,
     to,
     subject: `[Lead mới] ${lead.name} – ${carLabel}`,
     html: `
