@@ -50,7 +50,7 @@ export default async function HomePage() {
       <section className="py-16 px-4 bg-gray-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-10">
-            <span className="text-[#BB162B] text-xs font-bold uppercase tracking-wider">Showroom KIA HCM</span>
+            <span className="text-[#BB162B] text-xs font-bold uppercase tracking-wider">Showroom KIA Gò Vấp</span>
             <h2 className="text-3xl md:text-4xl font-black text-[#05141F] mt-2">Dòng xe KIA</h2>
             <div className="w-14 h-1 bg-[#BB162B] mx-auto mt-3" />
             <p className="text-gray-500 mt-4 max-w-xl mx-auto text-sm">
@@ -105,8 +105,8 @@ export default async function HomePage() {
       <section className="py-16 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-10">
-            <span className="text-[#BB162B] text-xs font-bold uppercase tracking-wider">Tại sao chọn chúng tôi</span>
-            <h2 className="text-3xl font-black text-[#05141F] mt-2">Đại Lý KIA Hồ Chí Minh</h2>
+            <span className="text-[#BB162B] text-xs font-bold uppercase tracking-wider">Đại lý chính hãng tại Gò Vấp</span>
+            <h2 className="text-3xl font-black text-[#05141F] mt-2">Vì Sao Chọn KIA Gò Vấp?</h2>
             <div className="w-14 h-1 bg-[#BB162B] mx-auto mt-3" />
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-8">
@@ -139,6 +139,40 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* Service CTA */}
+      <section className="py-12 px-4 bg-white border-t border-gray-100">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <Link
+              href="/bao-duong-xe-kia-go-vap"
+              className="group flex items-center gap-5 bg-gradient-to-r from-[#05141F] to-[#0d2137] rounded-2xl p-6 hover:from-[#0d2137] hover:to-[#1a3a5c] transition-all"
+            >
+              <div className="w-12 h-12 bg-[#BB162B] rounded-xl flex items-center justify-center shrink-0">
+                <Wrench className="text-white" size={22} />
+              </div>
+              <div>
+                <p className="text-white font-black text-lg leading-tight">Bảo dưỡng KIA Gò Vấp</p>
+                <p className="text-gray-400 text-xs mt-1">Dịch vụ chính hãng · Đặt lịch ngay</p>
+              </div>
+              <ArrowRight className="text-[#BB162B] ml-auto shrink-0 group-hover:translate-x-1 transition-transform" size={20} />
+            </Link>
+            <Link
+              href="/gioi-thieu-kia-go-vap"
+              className="group flex items-center gap-5 bg-gray-50 border border-gray-200 rounded-2xl p-6 hover:border-[#BB162B] hover:bg-red-50 transition-all"
+            >
+              <div className="w-12 h-12 bg-[#05141F] rounded-xl flex items-center justify-center shrink-0">
+                <Shield className="text-white" size={22} />
+              </div>
+              <div>
+                <p className="text-[#05141F] font-black text-lg leading-tight">Giới thiệu showroom</p>
+                <p className="text-gray-500 text-xs mt-1">Đại lý KIA chính hãng · 189 Nguyễn Oanh</p>
+              </div>
+              <ArrowRight className="text-gray-400 ml-auto shrink-0 group-hover:text-[#BB162B] group-hover:translate-x-1 transition-all" size={20} />
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Quote + Contact */}
       <section className="py-16 px-4 bg-gray-50">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
@@ -148,8 +182,11 @@ export default async function HomePage() {
             <QuoteForm cars={cars} page="homepage" />
           </div>
           <div>
-            <span className="text-[#BB162B] text-xs font-bold uppercase tracking-wider">Showroom</span>
-            <h2 className="text-3xl font-black text-[#05141F] mt-2 mb-6">Địa chỉ đại lý</h2>
+            <span className="text-[#BB162B] text-xs font-bold uppercase tracking-wider">Showroom KIA Gò Vấp</span>
+            <h2 className="text-3xl font-black text-[#05141F] mt-2 mb-2">Địa Chỉ KIA Nguyễn Oanh</h2>
+            <p className="text-gray-500 text-sm mb-6">
+              Showroom KIA tọa lạc tại <strong>189 Nguyễn Oanh, Phường 10, Quận Gò Vấp</strong> – trung tâm của quận Gò Vấp, dễ dàng tiếp cận từ Bình Thạnh, Tân Bình và trung tâm TP HCM.
+            </p>
             <div className="space-y-4 mb-6">
               <div className="flex items-start gap-4 p-4 bg-white rounded-xl border border-gray-100 shadow-sm">
                 <MapPin className="text-[#BB162B] mt-1 shrink-0" size={22} />

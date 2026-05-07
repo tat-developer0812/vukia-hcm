@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X, Phone, ChevronDown } from "lucide-react";
+import { Menu, X, Phone, ChevronDown, Wrench } from "lucide-react";
 import type { Car } from "@/lib/data";
 import Logo from "@/components/Logo";
 import { useModal } from "@/context/ModalContext";
@@ -48,7 +48,7 @@ export default function Header({ cars }: { cars: Car[] }) {
 
       {/* Main nav */}
       <nav className="max-w-7xl mx-auto px-4 flex items-center justify-between h-16">
-        <Link href="/" className="flex items-center shrink-0">
+        <Link href="/" aria-label="KIA Gò Vấp HCM – Trang chủ" className="flex items-center shrink-0">
           <Logo variant="dark" size="md" />
         </Link>
 
@@ -87,6 +87,9 @@ export default function Header({ cars }: { cars: Car[] }) {
           </Link>
           <Link href="/thu-tuc-tra-gop-xe-kia" className="hover:text-[#BB162B] transition-colors py-2">
             Trả góp
+          </Link>
+          <Link href="/bao-duong-xe-kia-go-vap" className="flex items-center gap-1 hover:text-[#BB162B] transition-colors py-2">
+            <Wrench size={13} /> Bảo dưỡng
           </Link>
           <Link href="/lien-he-kia-ho-chi-minh" className="hover:text-[#BB162B] transition-colors py-2">
             Liên hệ
@@ -138,6 +141,12 @@ export default function Header({ cars }: { cars: Car[] }) {
           </Link>
           <Link href="/thu-tuc-tra-gop-xe-kia" className="block py-3 border-b text-sm" onClick={() => setOpen(false)}>
             Trả góp
+          </Link>
+          <Link href="/bao-duong-xe-kia-go-vap" className="block py-3 border-b text-sm" onClick={() => setOpen(false)}>
+            Bảo dưỡng KIA Gò Vấp
+          </Link>
+          <Link href="/gioi-thieu-kia-go-vap" className="block py-3 border-b text-sm" onClick={() => setOpen(false)}>
+            Giới thiệu showroom
           </Link>
           <Link href="/lien-he-kia-ho-chi-minh" className="block py-3 text-sm" onClick={() => setOpen(false)}>
             Liên hệ

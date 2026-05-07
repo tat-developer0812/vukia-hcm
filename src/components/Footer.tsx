@@ -44,7 +44,9 @@ export default async function Footer() {
           <ul className="space-y-2">
             {[
               { href: "/dang-ky-lai-thu-xe-kia", label: "Đăng ký lái thử" },
+              { href: "/bao-duong-xe-kia-go-vap", label: "Bảo dưỡng KIA Gò Vấp" },
               { href: "/thu-tuc-tra-gop-xe-kia", label: "Thủ tục trả góp" },
+              { href: "/gioi-thieu-kia-go-vap", label: "Giới thiệu showroom" },
               { href: "/lien-he-kia-ho-chi-minh", label: "Liên hệ tư vấn" },
               { href: "/privacy-policy", label: "Chính sách bảo mật" },
             ].map((l) => (

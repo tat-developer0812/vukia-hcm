@@ -51,6 +51,7 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "AutoDealer",
   name: "Showroom Ô Tô KIA Gò Vấp - TP HCM",
+  alternateName: ["KIA Gò Vấp", "Đại lý KIA Gò Vấp", "KIA Nguyễn Oanh"],
   url: siteUrl,
   telephone: "0931456204",
   address: {
@@ -59,9 +60,73 @@ const jsonLd = {
     addressLocality: "Phường 10, Quận Gò Vấp",
     addressRegion: "TP HCM",
     addressCountry: "VN",
+    postalCode: "70000",
   },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: 10.8326,
+    longitude: 106.6648,
+  },
+  hasMap: "https://maps.app.goo.gl/UUAFA73y673nzSfb8",
   openingHours: "Mo-Su 07:30-21:00",
   priceRange: "$$",
+  areaServed: ["Gò Vấp", "Bình Thạnh", "Tân Bình", "Phú Nhuận", "TP HCM"],
+  currenciesAccepted: "VND",
+  paymentAccepted: "Tiền mặt, Chuyển khoản, Trả góp",
+};
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "Showroom KIA Gò Vấp ở đâu?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Showroom KIA Gò Vấp tọa lạc tại 189 Nguyễn Oanh, Phường 10, Quận Gò Vấp, TP HCM. Mở cửa từ 7:30 – 21:00, tất cả các ngày trong tuần.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Đại lý KIA Gò Vấp có bán xe chính hãng không?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Có. KIA Gò Vấp là đại lý chính hãng được ủy quyền bởi THACO – nhà phân phối độc quyền KIA tại Việt Nam. Tất cả xe đều có tem kiểm định và bảo hành chính hãng 5 năm/150.000km.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "KIA Gò Vấp có dịch vụ bảo dưỡng xe không?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Có. Showroom KIA Gò Vấp cung cấp đầy đủ dịch vụ bảo dưỡng định kỳ và sửa chữa chính hãng. Kỹ thuật viên được đào tạo tại KIA Hàn Quốc. Đặt lịch bảo dưỡng tại: " + siteUrl + "/bao-duong-xe-kia-go-vap",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "KIA Nguyễn Oanh Gò Vấp có hỗ trợ trả góp không?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Có. Đại lý KIA Nguyễn Oanh hỗ trợ trả góp lên đến 85% giá trị xe, lãi suất ưu đãi, thủ tục đơn giản, duyệt hồ sơ nhanh trong 15 phút, liên kết với 10+ ngân hàng lớn.",
+      },
+    },
+  ],
+};
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "KIA Gò Vấp HCM",
+  url: siteUrl,
+  potentialAction: {
+    "@type": "SearchAction",
+    target: {
+      "@type": "EntryPoint",
+      urlTemplate: `${siteUrl}/?s={search_term_string}`,
+    },
+    "query-input": "required name=search_term_string",
+  },
 };
 
 export default async function SiteLayout({ children }: { children: React.ReactNode }) {
@@ -74,9 +139,23 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <ModalProvider>
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-0 focus:left-0 focus:z-[100] focus:px-4 focus:py-2 focus:bg-[#BB162B] focus:text-white focus:font-bold focus:text-sm"
+        >
+          Bỏ qua nội dung chính
+        </a>
         <Header cars={cars} />
-        <main className="pt-[90px]">{children}</main>
+        <main id="main-content" className="pt-[90px]">{children}</main>
         <Footer />
 
         <FloatingContact hotline={contact.hotline} />

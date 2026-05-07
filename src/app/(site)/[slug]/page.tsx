@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { CheckCircle, ChevronRight, ArrowLeft } from "lucide-react";
+import { CheckCircle, ChevronRight, ArrowLeft, Wrench } from "lucide-react";
 import QuoteForm from "@/components/QuoteForm";
 import QuoteButton from "@/components/QuoteButton";
 import CarDetailTracker from "@/components/CarDetailTracker";
@@ -133,6 +133,21 @@ export default async function CarPage({ params }: { params: Promise<{ slug: stri
                 * Giá trên là giá niêm yết, chưa bao gồm phụ kiện và ưu đãi. Liên hệ để nhận báo giá tốt nhất.
               </p>
             </div>
+
+            {/* Maintenance CTA */}
+            <Link
+              href="/bao-duong-xe-kia-go-vap"
+              className="flex items-center gap-4 bg-white border border-gray-200 hover:border-[#BB162B] rounded-2xl p-5 shadow-sm transition-colors group"
+            >
+              <div className="w-10 h-10 bg-[#05141F] group-hover:bg-[#BB162B] rounded-xl flex items-center justify-center shrink-0 transition-colors">
+                <Wrench className="text-white" size={18} />
+              </div>
+              <div className="flex-1">
+                <p className="font-black text-sm text-[#05141F]">Bảo dưỡng {car.name} tại Gò Vấp</p>
+                <p className="text-xs text-gray-500 mt-0.5">Dịch vụ chính hãng · 189 Nguyễn Oanh</p>
+              </div>
+              <ChevronRight size={16} className="text-gray-400 group-hover:text-[#BB162B] transition-colors" />
+            </Link>
 
             {/* Promotions */}
             <div className="bg-gradient-to-r from-[#05141F] to-[#1a3a5c] rounded-2xl p-6 text-white">
