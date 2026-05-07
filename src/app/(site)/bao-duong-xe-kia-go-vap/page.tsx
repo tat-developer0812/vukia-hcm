@@ -279,7 +279,12 @@ export default async function MaintenancePage() {
             {/* Form */}
             <div id="dat-lich">
               <h2 className="text-2xl font-black text-[#05141F] mb-6">Đặt lịch bảo dưỡng online</h2>
-              <QuoteForm cars={cars} page="maintenance" />
+              <QuoteForm
+                cars={cars}
+                page="maintenance"
+                title="Đặt lịch bảo dưỡng"
+                submitLabel="Đặt lịch ngay"
+              />
             </div>
           </div>
         </div>

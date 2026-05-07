@@ -10,6 +10,8 @@ interface QuoteFormProps {
   defaultCar?: string;
   compact?: boolean;
   page?: string;
+  title?: string;
+  submitLabel?: string;
   onSuccess?: () => void;
 }
 
@@ -18,6 +20,8 @@ export default function QuoteForm({
   defaultCar = "",
   compact = false,
   page = "unknown",
+  title,
+  submitLabel,
   onSuccess,
 }: QuoteFormProps) {
   const [form, setForm] = useState({
@@ -65,7 +69,7 @@ export default function QuoteForm({
       <div className={compact ? "" : "bg-white rounded-2xl shadow-xl p-6 border border-gray-100"}>
         {!compact && (
           <div className="mb-6">
-            <h3 className="text-xl font-bold text-[#05141F]">Nhận báo giá ưu đãi</h3>
+            <h3 className="text-xl font-bold text-[#05141F]">{title ?? "Nhận báo giá ưu đãi"}</h3>
             <div className="w-10 h-0.5 bg-[#BB162B] mt-2" />
             <p className="text-sm text-gray-500 mt-2">
               Để lại thông tin, tư vấn viên sẽ liên hệ ngay!
@@ -144,7 +148,7 @@ export default function QuoteForm({
             className="w-full bg-[#BB162B] hover:bg-[#9a1022] disabled:opacity-60 text-white py-3 rounded-lg font-semibold flex items-center justify-center gap-2 transition-colors text-sm"
           >
             <Send size={16} />
-            {loading ? "Đang gửi..." : "Nhận báo giá"}
+            {loading ? "Đang gửi..." : (submitLabel ?? "Nhận báo giá")}
           </button>
           <a
             href="tel:0931456204"
