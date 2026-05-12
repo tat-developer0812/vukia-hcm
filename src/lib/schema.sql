@@ -10,5 +10,6 @@ CREATE TABLE IF NOT EXISTS leads (
   updated_at TIMESTAMPTZ   NOT NULL DEFAULT NOW()
 );
 
-CREATE UNIQUE INDEX IF NOT EXISTS leads_phone_idx ON leads (phone);
+CREATE INDEX IF NOT EXISTS leads_phone_idx ON leads (phone);
 CREATE INDEX IF NOT EXISTS leads_email_idx ON leads (email) WHERE email IS NOT NULL;
+CREATE INDEX IF NOT EXISTS leads_created_at_idx ON leads (created_at);

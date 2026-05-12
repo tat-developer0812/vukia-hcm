@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { findLeadByPhoneOrEmail, insertLead, touchLead } from "@/lib/db";
+import { findTodayLeadByPhoneOrEmail, insertLead, touchLead } from "@/lib/db";
 import { sendLeadNotification } from "@/lib/email";
 
 export const runtime = "nodejs";
@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
   const cleanEmail = email?.trim().toLowerCase() || undefined;
 
   try {
-    const existing = await findLeadByPhoneOrEmail(cleanPhone, cleanEmail);
+    const existing = await findTodayLeadByPhoneOrEmail(cleanPhone, cleanEmail);
 
     if (existing) {
       await touchLead(existing.id);

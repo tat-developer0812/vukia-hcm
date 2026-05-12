@@ -18,20 +18,30 @@ export interface Lead {
   updated_at: string;
 }
 
-export async function findLeadByPhoneOrEmail(
+// Tìm lead trong NGÀY HÔM NAY (theo Asia/Ho_Chi_Minh) match phone hoặc email.
+// Khác ngày → trả null để route handler insert lead mới + gửi mail.
+export async function findTodayLeadByPhoneOrEmail(
   phone: string,
   email?: string
 ): Promise<Lead | null> {
   const sql = getDb();
   if (email) {
     const rows = await sql`
-      SELECT * FROM leads WHERE phone = ${phone} OR (email IS NOT NULL AND email = ${email})
+      SELECT * FROM leads
+      WHERE (phone = ${phone} OR (email IS NOT NULL AND email = ${email}))
+        AND (created_at AT TIME ZONE 'Asia/Ho_Chi_Minh')::date
+            = (NOW() AT TIME ZONE 'Asia/Ho_Chi_Minh')::date
+      ORDER BY id DESC
       LIMIT 1
     `;
     return (rows[0] as Lead) ?? null;
   } else {
     const rows = await sql`
-      SELECT * FROM leads WHERE phone = ${phone}
+      SELECT * FROM leads
+      WHERE phone = ${phone}
+        AND (created_at AT TIME ZONE 'Asia/Ho_Chi_Minh')::date
+            = (NOW() AT TIME ZONE 'Asia/Ho_Chi_Minh')::date
+      ORDER BY id DESC
       LIMIT 1
     `;
     return (rows[0] as Lead) ?? null;
