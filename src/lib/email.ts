@@ -12,8 +12,11 @@ export interface LeadEmailData {
 }
 
 export async function sendLeadNotification(lead: LeadEmailData): Promise<void> {
-  const to = process.env.NOTIFY_EMAIL;
-  if (!to) throw new Error("NOTIFY_EMAIL not set");
+  const raw = process.env.NOTIFY_EMAIL;
+  if (!raw) throw new Error("NOTIFY_EMAIL not set");
+  // hỗ trợ nhiều email cách nhau bởi dấu phẩy
+  const to = raw.split(",").map((s) => s.trim()).filter(Boolean);
+  if (to.length === 0) throw new Error("NOTIFY_EMAIL is empty");
 
   const carLabel = lead.car || "Chưa chọn";
   const pageLabel: Record<string, string> = {
