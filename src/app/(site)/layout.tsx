@@ -17,7 +17,6 @@ export const metadata: Metadata = {
   keywords: "KIA Gò Vấp, đại lý KIA HCM, mua xe KIA, KIA Seltos, KIA Sonet, KIA Carens",
   verification: { google: "rfHNUkXMO37XwoZ7lfhEw0rWeZfsEIc7U3MSx03TN2w" },
   robots: { index: true, follow: true },
-  alternates: { canonical: siteUrl },
   icons: {
     icon: [{ url: "/favicon.svg", type: "image/svg+xml" }, { url: "/favicon.ico" }],
     shortcut: "/favicon.ico",
@@ -75,45 +74,6 @@ const jsonLd = {
   paymentAccepted: "Tiền mặt, Chuyển khoản, Trả góp",
 };
 
-const faqJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: [
-    {
-      "@type": "Question",
-      name: "Showroom KIA Gò Vấp ở đâu?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Showroom KIA Gò Vấp tọa lạc tại 189 Nguyễn Oanh, Phường 10, Quận Gò Vấp, TP HCM. Mở cửa từ 7:30 – 21:00, tất cả các ngày trong tuần.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "Đại lý KIA Gò Vấp có bán xe chính hãng không?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Có. KIA Gò Vấp là đại lý chính hãng được ủy quyền bởi THACO – nhà phân phối độc quyền KIA tại Việt Nam. Tất cả xe đều có tem kiểm định và bảo hành chính hãng 5 năm/150.000km.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "KIA Gò Vấp có dịch vụ bảo dưỡng xe không?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Có. Showroom KIA Gò Vấp cung cấp đầy đủ dịch vụ bảo dưỡng định kỳ và sửa chữa chính hãng. Kỹ thuật viên được đào tạo tại KIA Hàn Quốc. Đặt lịch bảo dưỡng tại: " + siteUrl + "/bao-duong-xe-kia-go-vap",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "KIA Nguyễn Oanh Gò Vấp có hỗ trợ trả góp không?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Có. Đại lý KIA Nguyễn Oanh hỗ trợ trả góp lên đến 85% giá trị xe, lãi suất ưu đãi, thủ tục đơn giản, duyệt hồ sơ nhanh trong 15 phút, liên kết với 10+ ngân hàng lớn.",
-      },
-    },
-  ],
-};
-
 const websiteJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
@@ -142,10 +102,6 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <ModalProvider>
         <a

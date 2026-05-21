@@ -5,6 +5,7 @@ import { getCars } from "@/lib/data";
 export const metadata = {
   title: "Thủ tục trả góp xe KIA – Lãi suất thấp | KIA HCM",
   description: "Hướng dẫn thủ tục trả góp mua xe KIA tại TP.HCM. Lãi suất ưu đãi, thủ tục đơn giản, duyệt nhanh.",
+  alternates: { canonical: "https://www.kiagovaphcm.com/thu-tuc-tra-gop-xe-kia" },
 };
 
 const steps = [

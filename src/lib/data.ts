@@ -24,6 +24,7 @@ export interface Car {
     seats: string;
     fuel: string;
   };
+  updatedAt: string;
 }
 
 export interface Contact {
@@ -49,7 +50,8 @@ const CARS_QUERY = `*[_type == "car"] | order(order asc, shortName asc) {
   category,
   description,
   "variants": variants[]{ name, price },
-  specs
+  specs,
+  "updatedAt": _updatedAt
 }`;
 
 const EMPTY_SPECS: Car["specs"] = {
@@ -71,9 +73,10 @@ const CARS_OPTS = { next: { revalidate: 60, tags: ["cars"] } };
 const PROMOTIONS_OPTS = { next: { revalidate: 60, tags: ["promotions"] } };
 const CONTACT_OPTS = { next: { revalidate: 60, tags: ["contact"] } };
 
-type RawCar = Omit<Car, "variants" | "specs"> & {
+type RawCar = Omit<Car, "variants" | "specs" | "updatedAt"> & {
   variants: CarVariant[] | null;
   specs: Car["specs"] | null;
+  updatedAt: string | null;
 };
 
 export async function getCars(): Promise<Car[]> {
@@ -82,6 +85,7 @@ export async function getCars(): Promise<Car[]> {
     ...c,
     variants: c.variants ?? [],
     specs: c.specs ?? EMPTY_SPECS,
+    updatedAt: c.updatedAt ?? new Date().toISOString(),
   }));
 }
 

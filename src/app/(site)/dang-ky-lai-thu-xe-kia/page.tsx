@@ -5,6 +5,7 @@ import { getCars } from "@/lib/data";
 export const metadata = {
   title: "Đăng ký lái thử xe KIA – Miễn phí tại TP.HCM",
   description: "Đăng ký lái thử xe KIA miễn phí tại đại lý TP.HCM. Trải nghiệm các dòng xe KIA mới nhất 2025-2026.",
+  alternates: { canonical: "https://www.kiagovaphcm.com/dang-ky-lai-thu-xe-kia" },
 };
 
 const benefits = [

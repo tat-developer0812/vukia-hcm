@@ -20,6 +20,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: `${car.name} – Giá từ ${car.startPrice} | KIA HCM`,
     description: car.description,
+    alternates: { canonical: `https://www.kiagovaphcm.com/${slug}` },
   };
 }
 
@@ -31,8 +32,18 @@ export default async function CarPage({ params }: { params: Promise<{ slug: stri
 
   const otherCars = cars.filter((c) => c.slug !== slug).slice(0, 4);
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Trang chủ", item: "https://www.kiagovaphcm.com/" },
+      { "@type": "ListItem", position: 2, name: car.name, item: `https://www.kiagovaphcm.com/${slug}` },
+    ],
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       {/* Breadcrumb */}
       <div className="bg-white border-b border-gray-100 px-4 py-3">
         <div className="max-w-7xl mx-auto flex items-center gap-2 text-sm text-gray-500">
@@ -60,8 +71,8 @@ export default async function CarPage({ params }: { params: Promise<{ slug: stri
                     src={car.heroImage}
                     alt={car.name}
                     fill
+                    sizes="(min-width: 1024px) 50vw, (min-width: 768px) 50vw, 100vw"
                     className="object-contain drop-shadow-2xl"
-                    unoptimized
                     priority
                   />
                 </div>
@@ -178,7 +189,7 @@ export default async function CarPage({ params }: { params: Promise<{ slug: stri
                       className="flex items-center gap-3 p-2 rounded-xl hover:bg-gray-50 transition-colors group"
                     >
                       <div className="relative w-16 h-12 bg-gray-100 rounded-lg overflow-hidden shrink-0">
-                        <Image src={c.image} alt={c.name} fill className="object-contain p-1" unoptimized />
+                        <Image src={c.image} alt={c.name} fill sizes="64px" className="object-contain p-1" />
                       </div>
                       <div>
                         <p className="text-sm font-bold text-[#05141F] group-hover:text-[#BB162B] transition-colors">

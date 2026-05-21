@@ -5,11 +5,56 @@ import HeroSlider from "@/components/HeroSlider";
 import QuoteForm from "@/components/QuoteForm";
 import { getCars, getPromotions, getContact } from "@/lib/data";
 
+const HOME_URL = "https://www.kiagovaphcm.com";
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "Showroom KIA Gò Vấp ở đâu?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Showroom KIA Gò Vấp tọa lạc tại 189 Nguyễn Oanh, Phường 10, Quận Gò Vấp, TP HCM. Mở cửa từ 7:30 – 21:00, tất cả các ngày trong tuần.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Đại lý KIA Gò Vấp có bán xe chính hãng không?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Có. KIA Gò Vấp là đại lý chính hãng được ủy quyền bởi THACO – nhà phân phối độc quyền KIA tại Việt Nam. Tất cả xe đều có tem kiểm định và bảo hành chính hãng 5 năm/150.000km.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "KIA Gò Vấp có dịch vụ bảo dưỡng xe không?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: `Có. Showroom KIA Gò Vấp cung cấp đầy đủ dịch vụ bảo dưỡng định kỳ và sửa chữa chính hãng. Kỹ thuật viên được đào tạo tại KIA Hàn Quốc. Đặt lịch bảo dưỡng tại: ${HOME_URL}/bao-duong-xe-kia-go-vap`,
+      },
+    },
+    {
+      "@type": "Question",
+      name: "KIA Nguyễn Oanh Gò Vấp có hỗ trợ trả góp không?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Có. Đại lý KIA Nguyễn Oanh hỗ trợ trả góp lên đến 85% giá trị xe, lãi suất ưu đãi, thủ tục đơn giản, duyệt hồ sơ nhanh trong 15 phút, liên kết với 10+ ngân hàng lớn.",
+      },
+    },
+  ],
+};
+
 export default async function HomePage() {
   const [cars, promotions, contact] = await Promise.all([getCars(), getPromotions(), getContact()]);
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <h1 className="sr-only">Showroom Ô Tô KIA Gò Vấp – Đại Lý KIA Chính Hãng Tại TP HCM</h1>
       <HeroSlider cars={cars} />
 
@@ -70,8 +115,8 @@ export default async function HomePage() {
                     src={car.image}
                     alt={car.name}
                     fill
+                    sizes="(min-width: 1024px) 33vw, 50vw"
                     className="object-contain p-3 group-hover:scale-105 transition-transform duration-500"
-                    unoptimized
                   />
                   <span className="absolute top-2 left-2 sm:top-3 sm:left-3 bg-[#05141F] text-white text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full font-medium">
                     {car.category === "suv" ? "SUV" : car.category === "sedan" ? "Sedan" : car.category === "mpv" ? "MPV" : "Hatchback"}

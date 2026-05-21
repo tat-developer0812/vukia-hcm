@@ -5,6 +5,7 @@ import { getCars, getContact } from "@/lib/data";
 export const metadata = {
   title: "Liên hệ KIA Gò Vấp – Showroom 189 Nguyễn Oanh | 0931.456.204",
   description: "Liên hệ showroom KIA Gò Vấp tại 189 Nguyễn Oanh, Phường 10, Quận Gò Vấp, TP HCM. Tư vấn mua xe KIA, báo giá, đặt lịch lái thử. Hotline: 0931.456.204",
+  alternates: { canonical: "https://www.kiagovaphcm.com/lien-he-kia-ho-chi-minh" },
 };
 
 export default async function ContactPage() {
