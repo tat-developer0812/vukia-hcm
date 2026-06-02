@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
+
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
 export const metadata: Metadata = {
   icons: {
@@ -19,6 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Analytics />
         <SpeedInsights />
       </body>
+      {GA_ID && <GoogleAnalytics gaId={GA_ID} />}
     </html>
   );
 }
