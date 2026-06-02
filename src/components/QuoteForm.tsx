@@ -4,6 +4,7 @@ import { Send, Phone } from "lucide-react";
 import type { Car } from "@/lib/data";
 import Toast from "./Toast";
 import { trackEvent } from "@/lib/analytics";
+import { getVisitorId } from "@/lib/visitor";
 
 interface QuoteFormProps {
   cars: Car[];
@@ -42,7 +43,7 @@ export default function QuoteForm({
       await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, page }),
+        body: JSON.stringify({ ...form, page, visitorId: getVisitorId() }),
       });
     } catch {
       // Silent fail — toast still shows so UX is not broken

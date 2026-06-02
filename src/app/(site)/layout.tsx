@@ -5,6 +5,7 @@ import QuoteModal from "@/components/QuoteModal";
 import { ModalProvider } from "@/context/ModalContext";
 import { getCars, getContact } from "@/lib/data";
 import FloatingContact from "@/components/FloatingContact";
+import PageViewTracker from "@/components/PageViewTracker";
 
 const siteUrl = "https://www.kiagovaphcm.com";
 const siteTitle = "KIA Gò Vấp HCM – Đại Lý KIA Chính Hãng | 0931.456.204";
@@ -104,6 +105,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
       />
       <ModalProvider>
+        <PageViewTracker />
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:top-0 focus:left-0 focus:z-[100] focus:px-4 focus:py-2 focus:bg-[#BB162B] focus:text-white focus:font-bold focus:text-sm"

@@ -11,6 +11,7 @@ interface LeadBody {
   car?: string;
   note?: string;
   page?: string;
+  visitorId?: string;
 }
 
 export async function POST(req: NextRequest) {
@@ -21,7 +22,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
   }
 
-  const { name, phone, email, car, note, page } = body;
+  const { name, phone, email, car, note, page, visitorId } = body;
 
   if (!name || typeof name !== "string" || name.trim().length === 0) {
     return NextResponse.json({ error: "name required" }, { status: 400 });
@@ -48,6 +49,7 @@ export async function POST(req: NextRequest) {
       car: car?.trim() || undefined,
       note: note?.trim() || undefined,
       page,
+      visitorId: visitorId?.trim()?.slice(0, 40) || undefined,
     });
 
     sendLeadNotification({
