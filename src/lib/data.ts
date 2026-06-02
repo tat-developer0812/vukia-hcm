@@ -39,6 +39,26 @@ export interface Contact {
   mapEmbed: string;
 }
 
+// "1.239.000.000 đ" -> 1239000000. Trả null nếu không parse được.
+export function parseVndPrice(s: string | undefined | null): number | null {
+  if (!s) return null;
+  const digits = s.replace(/\D/g, "");
+  if (!digits) return null;
+  const n = Number(digits);
+  return Number.isFinite(n) && n > 0 ? n : null;
+}
+
+// Chuẩn hóa tên xe: bỏ khoảng trắng thừa/lặp (dữ liệu có " KIA New  Seltos").
+export function cleanCarName(name: string): string {
+  return name.replace(/\s+/g, " ").trim();
+}
+
+// Nhãn tháng hiện tại dạng "tháng M/YYYY" cho phần khuyến mãi (tránh hardcode lỗi thời).
+export function currentMonthLabel(): string {
+  const d = new Date();
+  return `tháng ${d.getMonth() + 1}/${d.getFullYear()}`;
+}
+
 const CARS_QUERY = `*[_type == "car"] | order(order asc, shortName asc) {
   "slug": slug.current,
   name,

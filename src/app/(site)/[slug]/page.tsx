@@ -5,7 +5,7 @@ import { CheckCircle, ChevronRight, ArrowLeft, Wrench } from "lucide-react";
 import QuoteForm from "@/components/QuoteForm";
 import QuoteButton from "@/components/QuoteButton";
 import CarDetailTracker from "@/components/CarDetailTracker";
-import { getCars, getPromotions } from "@/lib/data";
+import { getCars, getPromotions, cleanCarName, parseVndPrice, currentMonthLabel } from "@/lib/data";
 
 export async function generateStaticParams() {
   const cars = await getCars();
@@ -17,10 +17,30 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const cars = await getCars();
   const car = cars.find((c) => c.slug === slug);
   if (!car) return {};
+  const name = cleanCarName(car.name);
+  const url = `https://www.kiagovaphcm.com/${slug}`;
+  const title = `${name} – Giá từ ${car.startPrice} tại KIA Gò Vấp HCM`;
+  const description = `${car.description} Xem bảng giá lăn bánh, trả góp & đặt lịch lái thử tại KIA Gò Vấp – 189 Nguyễn Oanh. Hotline 0931.456.204.`;
   return {
-    title: `${car.name} – Giá từ ${car.startPrice} | KIA HCM`,
-    description: car.description,
-    alternates: { canonical: `https://www.kiagovaphcm.com/${slug}` },
+    title,
+    description,
+    keywords: `${name}, ${name} giá, ${name} giá lăn bánh, mua ${name} Gò Vấp, ${name} trả góp, KIA Gò Vấp HCM`,
+    alternates: { canonical: url },
+    openGraph: {
+      title,
+      description,
+      url,
+      siteName: "KIA Gò Vấp HCM",
+      locale: "vi_VN",
+      type: "website",
+      images: [{ url: car.heroImage, width: 1200, height: 630, alt: `${name} tại KIA Gò Vấp HCM` }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [car.heroImage],
+    },
   };
 }
 
@@ -32,18 +52,61 @@ export default async function CarPage({ params }: { params: Promise<{ slug: stri
 
   const otherCars = cars.filter((c) => c.slug !== slug).slice(0, 4);
 
+  const name = cleanCarName(car.name);
+  const url = `https://www.kiagovaphcm.com/${slug}`;
+
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Trang chủ", item: "https://www.kiagovaphcm.com/" },
-      { "@type": "ListItem", position: 2, name: car.name, item: `https://www.kiagovaphcm.com/${slug}` },
+      { "@type": "ListItem", position: 2, name, item: url },
     ],
+  };
+
+  // Schema Xe + giá → đủ điều kiện hiện giá/rich snippet trên Google
+  const variantPrices = car.variants
+    .map((v) => parseVndPrice(v.price))
+    .filter((n): n is number => n !== null);
+  const lowPrice = variantPrices.length ? Math.min(...variantPrices) : parseVndPrice(car.startPrice);
+  const highPrice = variantPrices.length ? Math.max(...variantPrices) : lowPrice;
+  const seats = parseInt(car.specs.seats, 10);
+
+  const carJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Car",
+    name,
+    model: name,
+    brand: { "@type": "Brand", name: "Kia" },
+    image: car.heroImage,
+    description: car.description,
+    url,
+    ...(car.specs.fuel ? { fuelType: car.specs.fuel } : {}),
+    ...(car.specs.transmission ? { vehicleTransmission: car.specs.transmission } : {}),
+    ...(Number.isFinite(seats) && seats > 0 ? { vehicleSeatingCapacity: seats } : {}),
+    ...(car.specs.engine
+      ? { vehicleEngine: { "@type": "EngineSpecification", name: car.specs.engine } }
+      : {}),
+    ...(lowPrice
+      ? {
+          offers: {
+            "@type": "AggregateOffer",
+            priceCurrency: "VND",
+            lowPrice,
+            highPrice: highPrice ?? lowPrice,
+            offerCount: car.variants.length || 1,
+            availability: "https://schema.org/InStock",
+            url,
+            seller: { "@type": "AutoDealer", name: "KIA Gò Vấp HCM" },
+          },
+        }
+      : {}),
   };
 
   return (
     <div className="min-h-screen bg-gray-50">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(carJsonLd) }} />
       {/* Breadcrumb */}
       <div className="bg-white border-b border-gray-100 px-4 py-3">
         <div className="max-w-7xl mx-auto flex items-center gap-2 text-sm text-gray-500">
@@ -51,7 +114,7 @@ export default async function CarPage({ params }: { params: Promise<{ slug: stri
             <ArrowLeft size={14} /> Trang chủ
           </Link>
           <ChevronRight size={14} />
-          <span className="text-[#05141F] font-semibold">{car.name}</span>
+          <span className="text-[#05141F] font-semibold">{name}</span>
         </div>
       </div>
 
@@ -69,7 +132,7 @@ export default async function CarPage({ params }: { params: Promise<{ slug: stri
                 <div className="relative h-40 sm:h-48 md:h-56 md:order-2 mb-4 md:mb-0">
                   <Image
                     src={car.heroImage}
-                    alt={car.name}
+                    alt={`${name} – Giá từ ${car.startPrice} tại KIA Gò Vấp HCM`}
                     fill
                     sizes="(min-width: 1024px) 50vw, (min-width: 768px) 50vw, 100vw"
                     className="object-contain drop-shadow-2xl"
@@ -80,7 +143,7 @@ export default async function CarPage({ params }: { params: Promise<{ slug: stri
                   <span className="bg-[#BB162B] text-white text-xs px-3 py-1 rounded-full font-bold uppercase">
                     {car.category === "suv" ? "SUV" : car.category === "sedan" ? "Sedan" : car.category === "mpv" ? "MPV" : "Hatchback"}
                   </span>
-                  <h1 className="text-2xl sm:text-3xl md:text-4xl font-black mt-3 mb-2">{car.name}</h1>
+                  <h1 className="text-2xl sm:text-3xl md:text-4xl font-black mt-3 mb-2">{name}</h1>
                   <p className="text-gray-300 text-sm mb-4 leading-relaxed hidden sm:block">{car.description}</p>
                   <div>
                     <p className="text-gray-400 text-xs">Giá từ</p>
@@ -119,7 +182,7 @@ export default async function CarPage({ params }: { params: Promise<{ slug: stri
             {/* Price table */}
             <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
               <h2 className="text-lg font-black text-[#05141F] mb-4">
-                Bảng giá {car.name}
+                Bảng giá {name} {new Date().getFullYear()}
                 <div className="w-10 h-0.5 bg-[#BB162B] mt-2" />
               </h2>
               <div className="overflow-x-auto rounded-xl border border-gray-100">
@@ -154,7 +217,7 @@ export default async function CarPage({ params }: { params: Promise<{ slug: stri
                 <Wrench className="text-white" size={18} />
               </div>
               <div className="flex-1">
-                <p className="font-black text-sm text-[#05141F]">Bảo dưỡng {car.name} tại Gò Vấp</p>
+                <p className="font-black text-sm text-[#05141F]">Bảo dưỡng {name} tại Gò Vấp</p>
                 <p className="text-xs text-gray-500 mt-0.5">Dịch vụ chính hãng · 189 Nguyễn Oanh</p>
               </div>
               <ChevronRight size={16} className="text-gray-400 group-hover:text-[#BB162B] transition-colors" />
@@ -162,7 +225,7 @@ export default async function CarPage({ params }: { params: Promise<{ slug: stri
 
             {/* Promotions */}
             <div className="bg-gradient-to-r from-[#05141F] to-[#1a3a5c] rounded-2xl p-6 text-white">
-              <h2 className="text-lg font-black mb-4">Khuyến mãi tháng 4/2026</h2>
+              <h2 className="text-lg font-black mb-4">Khuyến mãi {currentMonthLabel()}</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {promotions.map((p, i) => (
                   <div key={i} className="flex items-start gap-2">

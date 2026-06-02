@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Phone, MapPin, CheckCircle, Star, ArrowRight, Shield, Wrench, CreditCard } from "lucide-react";
 import HeroSlider from "@/components/HeroSlider";
 import QuoteForm from "@/components/QuoteForm";
-import { getCars, getPromotions, getContact } from "@/lib/data";
+import { getCars, getPromotions, getContact, currentMonthLabel } from "@/lib/data";
 
 const HOME_URL = "https://www.kiagovaphcm.com";
 
@@ -77,7 +77,7 @@ export default async function HomePage() {
       <section className="bg-gradient-to-r from-[#05141F] to-[#0d2137] py-12 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-8">
-            <span className="text-[#BB162B] text-xs font-bold uppercase tracking-wider">Ưu đãi tháng 4/2026</span>
+            <span className="text-[#BB162B] text-xs font-bold uppercase tracking-wider">Ưu đãi {currentMonthLabel()}</span>
             <h2 className="text-2xl md:text-3xl font-black text-white mt-1">Khuyến mãi khi mua xe KIA</h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
