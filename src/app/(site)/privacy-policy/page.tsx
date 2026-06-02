@@ -38,7 +38,39 @@ export default async function PrivacyPolicyPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-black text-[#05141F] mb-3">3. Bảo mật thông tin</h2>
+          <h2 className="text-xl font-black text-[#05141F] mb-3">3. Cookie và công cụ phân tích</h2>
+          <p>
+            Website sử dụng cookie và các công cụ phân tích của bên thứ ba — bao gồm{" "}
+            <strong>Google Analytics 4</strong>, <strong>Vercel Analytics</strong> và hệ thống
+            ghi nhận hành vi nội bộ — nhằm đo lường lượt truy cập, hiểu cách khách tương tác với
+            trang (xem trang nào, bấm nút gọi/Zalo/báo giá) để cải thiện dịch vụ và đo hiệu quả
+            quảng cáo.
+          </p>
+          <ul className="list-disc ml-5 mt-2 space-y-1">
+            <li>
+              Dữ liệu hành vi được thu thập dưới dạng <strong>ẩn danh</strong> (theo mã thiết bị),
+              không gắn với danh tính trừ khi quý khách tự nguyện để lại thông tin qua form.
+            </li>
+            <li>
+              Chúng tôi có thể dùng dữ liệu này cho mục đích tiếp thị lại (remarketing) qua Google.
+            </li>
+            <li>
+              Quý khách có thể từ chối cookie bằng cách điều chỉnh cài đặt trình duyệt hoặc dùng{" "}
+              <a
+                href="https://tools.google.com/dlpage/gaoptout"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#BB162B] font-bold"
+              >
+                tiện ích từ chối Google Analytics
+              </a>
+              .
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 className="text-xl font-black text-[#05141F] mb-3">4. Bảo mật thông tin</h2>
           <p>
             Chúng tôi cam kết không chia sẻ, bán hoặc cho thuê thông tin cá nhân của quý khách cho
             bên thứ ba khi chưa có sự đồng ý, ngoại trừ các trường hợp theo yêu cầu pháp lý.
@@ -46,7 +78,7 @@ export default async function PrivacyPolicyPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-black text-[#05141F] mb-3">4. Quyền của khách hàng</h2>
+          <h2 className="text-xl font-black text-[#05141F] mb-3">5. Quyền của khách hàng</h2>
           <p>
             Quý khách có quyền yêu cầu xem, chỉnh sửa hoặc xóa thông tin cá nhân bằng cách liên hệ
             trực tiếp với chúng tôi qua hotline{" "}
@@ -62,7 +94,7 @@ export default async function PrivacyPolicyPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-black text-[#05141F] mb-3">5. Liên hệ</h2>
+          <h2 className="text-xl font-black text-[#05141F] mb-3">6. Liên hệ</h2>
           <p>
             {contact.fullName}
             <br />

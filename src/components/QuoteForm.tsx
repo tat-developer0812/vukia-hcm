@@ -34,6 +34,8 @@ export default function QuoteForm({
   });
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState(false);
+  // Honeypot chống bot: người dùng thật không thấy nên để trống; bot điền vào => loại
+  const [hp, setHp] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,7 +45,7 @@ export default function QuoteForm({
       await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, page, visitorId: getVisitorId() }),
+        body: JSON.stringify({ ...form, page, visitorId: getVisitorId(), hp }),
       });
     } catch {
       // Silent fail — toast still shows so UX is not broken
@@ -79,6 +81,17 @@ export default function QuoteForm({
         )}
 
         <form onSubmit={handleSubmit} className="space-y-3">
+          {/* Honeypot — ẩn với người dùng thật, chỉ bot mới điền */}
+          <input
+            type="text"
+            name="company"
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+            value={hp}
+            onChange={(e) => setHp(e.target.value)}
+            className="absolute left-[-9999px] w-px h-px opacity-0"
+          />
           <div>
             <label htmlFor="quote-name" className="sr-only">Họ và tên</label>
             <input

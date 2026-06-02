@@ -20,7 +20,7 @@ export default function robots(): MetadataRoute.Robots {
           "Bytespider",
         ],
         allow: "/",
-        disallow: ["/studio", "/api"],
+        disallow: ["/studio", "/api", "/admin"],
       },
     ],
     sitemap: "https://www.kiagovaphcm.com/sitemap.xml",

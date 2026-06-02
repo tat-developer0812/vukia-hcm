@@ -12,6 +12,7 @@ interface LeadBody {
   note?: string;
   page?: string;
   visitorId?: string;
+  hp?: string;
 }
 
 export async function POST(req: NextRequest) {
@@ -22,7 +23,12 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
   }
 
-  const { name, phone, email, car, note, page, visitorId } = body;
+  const { name, phone, email, car, note, page, visitorId, hp } = body;
+
+  // Honeypot: nếu trường ẩn có dữ liệu => bot. Trả 200 giả thành công, không lưu, không gửi mail.
+  if (hp && hp.trim().length > 0) {
+    return NextResponse.json({ status: "ok" }, { status: 200 });
+  }
 
   if (!name || typeof name !== "string" || name.trim().length === 0) {
     return NextResponse.json({ error: "name required" }, { status: 400 });
