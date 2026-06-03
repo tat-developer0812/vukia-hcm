@@ -5,7 +5,7 @@ import { CheckCircle, ChevronRight, ArrowLeft, Wrench } from "lucide-react";
 import QuoteForm from "@/components/QuoteForm";
 import QuoteButton from "@/components/QuoteButton";
 import CarDetailTracker from "@/components/CarDetailTracker";
-import { getCars, getPromotions, cleanCarName, parseVndPrice, currentMonthLabel } from "@/lib/data";
+import { getCars, getPromotions, cleanCarName, parseVndPrice, currentMonthLabel, buildCarFaqs } from "@/lib/data";
 
 export async function generateStaticParams() {
   const cars = await getCars();
@@ -103,10 +103,22 @@ export default async function CarPage({ params }: { params: Promise<{ slug: stri
       : {}),
   };
 
+  const faqs = buildCarFaqs(car);
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(carJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
       {/* Breadcrumb */}
       <div className="bg-white border-b border-gray-100 px-4 py-3">
         <div className="max-w-7xl mx-auto flex items-center gap-2 text-sm text-gray-500">
@@ -232,6 +244,28 @@ export default async function CarPage({ params }: { params: Promise<{ slug: stri
                     <CheckCircle size={16} className="text-[#BB162B] mt-0.5 shrink-0" />
                     <span className="text-sm text-gray-200">{p}</span>
                   </div>
+                ))}
+              </div>
+            </div>
+
+            {/* FAQ */}
+            <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+              <h2 className="text-lg font-black text-[#05141F] mb-1">
+                Câu hỏi thường gặp về {name}
+                <div className="w-10 h-0.5 bg-[#BB162B] mt-2" />
+              </h2>
+              <div className="divide-y divide-gray-100">
+                {faqs.map((f, i) => (
+                  <details key={i} className="group py-3">
+                    <summary className="flex items-center justify-between cursor-pointer list-none font-semibold text-sm text-[#05141F]">
+                      <span>{f.q}</span>
+                      <ChevronRight
+                        size={16}
+                        className="text-[#BB162B] shrink-0 transition-transform group-open:rotate-90"
+                      />
+                    </summary>
+                    <p className="text-sm text-gray-600 mt-2 leading-relaxed">{f.a}</p>
+                  </details>
                 ))}
               </div>
             </div>

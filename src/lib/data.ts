@@ -59,6 +59,61 @@ export function currentMonthLabel(): string {
   return `tháng ${d.getMonth() + 1}/${d.getFullYear()}`;
 }
 
+// Dựng FAQ động theo dữ liệu từng xe (hiển thị + dùng cho FAQPage schema).
+export function buildCarFaqs(car: Car): { q: string; a: string }[] {
+  const name = cleanCarName(car.name);
+  const faqs: { q: string; a: string }[] = [];
+
+  // 1) Giá
+  const prices = car.variants.map((v) => parseVndPrice(v.price)).filter((n): n is number => n !== null);
+  const topVariant = car.variants.length
+    ? car.variants.reduce((a, b) => ((parseVndPrice(b.price) ?? 0) > (parseVndPrice(a.price) ?? 0) ? b : a))
+    : null;
+  const rangeText =
+    prices.length > 1 && topVariant ? ` đến ${topVariant.price} cho bản cao nhất` : "";
+  faqs.push({
+    q: `Giá xe ${name} bao nhiêu?`,
+    a: `${name} có giá niêm yết từ ${car.startPrice}${rangeText}. Giá lăn bánh tại TP.HCM còn tùy phiên bản, mức khuyến mãi từng tháng và phí trước bạ — liên hệ KIA Gò Vấp 0931.456.204 để nhận báo giá lăn bánh chính xác.`,
+  });
+
+  // 2) Phiên bản
+  if (car.variants.length) {
+    faqs.push({
+      q: `${name} có mấy phiên bản?`,
+      a: `${name} hiện có ${car.variants.length} phiên bản: ${car.variants.map((v) => v.name).join(", ")}.`,
+    });
+  }
+
+  // 3) Thông số
+  const specBits: string[] = [];
+  if (car.specs.seats) specBits.push(`${car.specs.seats} chỗ`);
+  if (car.specs.engine) specBits.push(`động cơ ${car.specs.engine}`);
+  if (car.specs.transmission) specBits.push(`hộp số ${car.specs.transmission}`);
+  if (car.specs.fuel) specBits.push(`nhiên liệu ${car.specs.fuel}`);
+  if (specBits.length) {
+    faqs.push({
+      q: `${name} có mấy chỗ ngồi và dùng động cơ gì?`,
+      a: `${name} ${specBits.join(", ")}.`,
+    });
+  }
+
+  // 4) Trả góp
+  faqs.push({
+    q: `Mua ${name} trả góp tại Gò Vấp như thế nào?`,
+    a: `KIA Gò Vấp hỗ trợ trả góp tới 80% giá trị xe qua các ngân hàng liên kết${
+      car.downPayment ? `, trả trước từ ${car.downPayment}` : ""
+    }. Thủ tục nhanh gọn, hỗ trợ đổi xe cũ lấy xe mới ngay tại showroom 189 Nguyễn Oanh.`,
+  });
+
+  // 5) Lái thử
+  faqs.push({
+    q: `Lái thử ${name} ở đâu tại TP.HCM?`,
+    a: `Bạn có thể đăng ký lái thử ${name} miễn phí tại showroom KIA Gò Vấp – 189 Nguyễn Oanh, Phường 10, Quận Gò Vấp. Gọi 0931.456.204 để đặt lịch hoặc yêu cầu lái thử tận nhà.`,
+  });
+
+  return faqs;
+}
+
 const CARS_QUERY = `*[_type == "car"] | order(order asc, shortName asc) {
   "slug": slug.current,
   name,
