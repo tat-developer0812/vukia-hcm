@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Phone, CheckCircle, Sofa, Volume2, ShieldCheck, ChevronRight } from "lucide-react";
 import QuoteForm from "@/components/QuoteForm";
-import { getCars } from "@/lib/data";
+import { getCars, cleanCarName, parseVndPrice } from "@/lib/data";
 import type { Metadata } from "next";
 
 const PAGE_URL = "https://www.kiagovaphcm.com/kia-carnival-2026-lai-thu-go-vap";
@@ -11,14 +11,16 @@ const DEALER_ADDRESS = "189 Nguyễn Oanh, Phường 10, Quận Gò Vấp, TP HC
 const PUBLISHED = "2026-05-19";
 
 export const metadata: Metadata = {
-  title: "Kia Carnival 2026: MPV 7 Chỗ Đáng Lái Thử Nhất Cho Gia Đình TP.HCM",
+  title: "Kia Carnival 2026: Giá Lăn Bánh, Trả Góp & Lái Thử tại TP.HCM | Kia Gò Vấp",
   description:
-    "Kia Carnival 2026 – MPV 7 chỗ rộng rãi, tiện nghi cao cấp cho gia đình TP.HCM. Xem nhanh ưu điểm và đặt lịch lái thử miễn phí tại Kia Gò Vấp.",
+    "Kia Carnival 2026 tại TP.HCM – MPV 7-8 chỗ hạng sang. Xem bảng giá lăn bánh, ưu đãi mới nhất, hỗ trợ trả góp tới 80% & đặt lịch lái thử miễn phí tại Kia Gò Vấp – 189 Nguyễn Oanh. Hotline 0931.456.204.",
+  keywords:
+    "kia carnival, kia carnival hcm, kia carnival 2026, giá kia carnival, kia carnival giá lăn bánh, mua kia carnival tphcm, kia carnival trả góp, lái thử kia carnival gò vấp",
   alternates: { canonical: PAGE_URL },
   openGraph: {
-    title: "Kia Carnival 2026: MPV 7 Chỗ Đáng Lái Thử Nhất Cho Gia Đình TP.HCM",
+    title: "Kia Carnival 2026: Giá Lăn Bánh, Trả Góp & Lái Thử tại TP.HCM",
     description:
-      "Kia Carnival 2026 – MPV 7 chỗ rộng rãi, tiện nghi cao cấp cho gia đình TP.HCM. Đặt lịch lái thử miễn phí tại Kia Gò Vấp.",
+      "Kia Carnival 2026 tại TP.HCM – MPV 7-8 chỗ hạng sang. Bảng giá lăn bánh, ưu đãi, trả góp 80% & lái thử miễn phí tại Kia Gò Vấp.",
     url: PAGE_URL,
     type: "article",
   },
@@ -127,8 +129,17 @@ const reasons = [
 
 export default async function CarnivalArticlePage() {
   const cars = await getCars();
-  const carnivalSlug =
-    cars.find((c) => c.slug.includes("carnival"))?.slug ?? "new-kia-carnival";
+  const carnival = cars.find((c) => c.slug.includes("carnival"));
+  const carnivalSlug = carnival?.slug ?? "new-kia-carnival";
+  const carnivalName = carnival ? cleanCarName(carnival.name) : "Kia Carnival";
+  const variantPrices = (carnival?.variants ?? [])
+    .map((v) => parseVndPrice(v.price))
+    .filter((n): n is number => n !== null);
+  const highPrice = variantPrices.length ? Math.max(...variantPrices) : null;
+  const highPriceText =
+    highPrice !== null
+      ? carnival?.variants.find((v) => parseVndPrice(v.price) === highPrice)?.price ?? null
+      : null;
 
   return (
     <>
@@ -150,16 +161,22 @@ export default async function CarnivalArticlePage() {
         <div className="bg-gradient-to-r from-[#05141F] to-[#0d2137] py-14 px-4 text-white">
           <div className="max-w-7xl mx-auto text-center">
             <span className="inline-block bg-[#BB162B] text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4">
-              Đánh giá nhanh · MPV 7 chỗ
+              MPV 7–8 chỗ hạng sang · TP.HCM
             </span>
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-black mb-3 leading-tight">
-              Kia Carnival 2026: MPV 7 Chỗ Đáng Lái Thử Nhất Cho Gia Đình TP.HCM
+              Kia Carnival 2026 tại TP.HCM – Giá Lăn Bánh, Trả Góp &amp; Lái Thử
             </h1>
             <div className="w-14 h-1 bg-[#BB162B] mx-auto mt-3 mb-5" />
             <p className="text-gray-300 text-sm md:text-base max-w-2xl mx-auto">
-              Tổng hợp ưu điểm chính của Kia Carnival 2026 và cách đặt lịch lái thử miễn phí ngay tại showroom{" "}
+              {carnivalName} – MPV 7–8 chỗ hạng sang. Xem bảng giá lăn bánh, ưu đãi mới nhất, hỗ trợ
+              trả góp tới 80% và đặt lịch lái thử miễn phí tại{" "}
               <strong className="text-white">Kia Gò Vấp – 189 Nguyễn Oanh</strong>.
             </p>
+            {carnival?.startPrice && (
+              <p className="mt-5 inline-block bg-white/10 border border-white/20 rounded-full px-5 py-2 text-sm md:text-base font-bold">
+                Giá niêm yết từ <span className="text-[#ff5a6e]">{carnival.startPrice}</span>
+              </p>
+            )}
             <div className="flex flex-wrap justify-center gap-3 mt-6">
               <a
                 href={`tel:${HOTLINE_TEL}`}
@@ -224,14 +241,58 @@ export default async function CarnivalArticlePage() {
               </section>
 
               <section>
-                <h2 className="text-2xl font-black text-[#05141F] mb-3">Giá và phiên bản Kia Carnival 2026</h2>
+                <h2 className="text-2xl font-black text-[#05141F] mb-3">Giá xe Kia Carnival 2026 tại TP.HCM</h2>
                 <div className="w-10 h-0.5 bg-[#BB162B] mb-5" />
-                <div className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100 space-y-4 text-gray-700 leading-relaxed">
+                <div className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100 space-y-5 text-gray-700 leading-relaxed">
                   <p>
-                    Kia Carnival 2026 có nhiều phiên bản động cơ (xăng và dầu) cùng các mức trang bị khác
-                    nhau. Vì giá lăn bánh tại TP.HCM còn phụ thuộc khuyến mãi từng tháng, phí trước bạ và lựa
-                    chọn phụ kiện, bạn nên nhận báo giá lăn bánh chính xác trực tiếp từ đại lý.
+                    {carnivalName} có giá niêm yết{" "}
+                    {carnival?.startPrice ? (
+                      <>
+                        từ <strong>{carnival.startPrice}</strong>
+                      </>
+                    ) : (
+                      "nhiều mức"
+                    )}
+                    {highPriceText ? (
+                      <>
+                        {" "}
+                        đến <strong>{highPriceText}</strong> cho bản cao nhất
+                      </>
+                    ) : null}
+                    , gồm nhiều phiên bản máy dầu và hybrid. Giá lăn bánh thực tế tại TP.HCM còn tùy mức
+                    khuyến mãi từng tháng, phí trước bạ và phụ kiện — để lại số điện thoại để nhận báo giá
+                    lăn bánh chính xác nhất.
                   </p>
+
+                  {carnival && carnival.variants.length > 0 && (
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-sm border-collapse">
+                        <thead>
+                          <tr className="bg-[#05141F] text-white text-left">
+                            <th className="px-4 py-3 font-bold rounded-tl-xl">Phiên bản</th>
+                            <th className="px-4 py-3 font-bold text-right rounded-tr-xl">Giá niêm yết</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {carnival.variants.map((v, i) => (
+                            <tr key={i} className="border-b border-gray-100 last:border-0">
+                              <td className="px-4 py-3 font-medium text-[#05141F]">{v.name}</td>
+                              <td className="px-4 py-3 text-right font-bold text-[#BB162B]">{v.price}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
+
+                  {carnival?.downPayment && (
+                    <p className="text-sm">
+                      <strong>Trả góp:</strong> hỗ trợ vay tới 80% giá trị xe, trả trước từ{" "}
+                      <strong>{carnival.downPayment}</strong> là có thể nhận xe — thủ tục nhanh gọn, hỗ trợ
+                      thu cũ đổi mới ngay tại showroom.
+                    </p>
+                  )}
+
                   <div className="bg-[#05141F] text-white rounded-xl p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                     <div>
                       <p className="font-black text-sm">Nhận báo giá lăn bánh Kia Carnival mới nhất</p>
@@ -246,6 +307,49 @@ export default async function CarnivalArticlePage() {
                       Xem chi tiết Carnival <ChevronRight size={14} />
                     </Link>
                   </div>
+                </div>
+              </section>
+
+              <section>
+                <h2 className="text-2xl font-black text-[#05141F] mb-3">Thông số nổi bật Kia Carnival</h2>
+                <div className="w-10 h-0.5 bg-[#BB162B] mb-5" />
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  {[
+                    { label: "Số chỗ", value: carnival?.specs.seats || "7–8 chỗ" },
+                    { label: "Động cơ", value: carnival?.specs.engine || "2.2L Dầu / Hybrid" },
+                    { label: "Hộp số", value: carnival?.specs.transmission || "8AT" },
+                    { label: "Nhiên liệu", value: carnival?.specs.fuel || "Dầu / Hybrid" },
+                  ].map((s, i) => (
+                    <div key={i} className="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm text-center">
+                      <p className="text-[11px] uppercase tracking-wider text-gray-400 mb-1">{s.label}</p>
+                      <p className="font-black text-sm text-[#05141F]">{s.value}</p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+              <section>
+                <h2 className="text-2xl font-black text-[#05141F] mb-3">Mua Kia Carnival tại TP.HCM ở đâu uy tín?</h2>
+                <div className="w-10 h-0.5 bg-[#BB162B] mb-5" />
+                <div className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100 space-y-4 text-gray-700 leading-relaxed">
+                  <p>
+                    Nếu bạn đang tìm mua <strong>Kia Carnival tại TP.HCM (Sài Gòn)</strong>, showroom{" "}
+                    <strong>Kia Gò Vấp – 189 Nguyễn Oanh</strong> là đại lý chính hãng, giao xe tận nơi cho khách
+                    ở Gò Vấp, Bình Thạnh, Phú Nhuận, Tân Bình, Quận 12, Thủ Đức và toàn TP.HCM.
+                  </p>
+                  <ul className="space-y-2">
+                    {[
+                      "Báo giá lăn bánh Kia Carnival minh bạch, đúng khuyến mãi mới nhất tại TP.HCM.",
+                      "Hỗ trợ trả góp tới 80%, lãi suất ưu đãi, duyệt hồ sơ nhanh.",
+                      "Thu cũ – đổi mới, định giá xe cũ tận nơi trong TP.HCM.",
+                      "Đủ màu, giao xe nhanh; lái thử miễn phí tại Gò Vấp hoặc tận nhà.",
+                    ].map((item, i) => (
+                      <li key={i} className="flex items-start gap-2 text-sm">
+                        <CheckCircle size={16} className="text-[#BB162B] mt-0.5 shrink-0" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </section>
 
