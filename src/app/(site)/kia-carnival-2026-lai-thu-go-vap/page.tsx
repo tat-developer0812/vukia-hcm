@@ -43,6 +43,7 @@ const articleJsonLd = {
   },
   publisher: {
     "@type": "AutoDealer",
+    "@id": "https://www.kiagovaphcm.com/#dealer",
     name: "Showroom Ô Tô Kia Gò Vấp",
     telephone: HOTLINE_TEL,
     address: {

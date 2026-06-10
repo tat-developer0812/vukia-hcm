@@ -50,9 +50,15 @@ export const metadata: Metadata = {
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "AutoDealer",
+  "@id": `${siteUrl}/#dealer`,
   name: "Showroom Ô Tô KIA Gò Vấp - TP HCM",
   alternateName: ["KIA Gò Vấp", "Đại lý KIA Gò Vấp", "KIA Nguyễn Oanh"],
   url: siteUrl,
+  image: "https://kia-hcm.com/wp-content/uploads/neptune-blue-b3a-0006-1.png",
+  sameAs: [
+    "https://maps.app.goo.gl/UUAFA73y673nzSfb8",
+    "https://zalo.me/0931456204",
+  ],
   telephone: "0931456204",
   address: {
     "@type": "PostalAddress",

@@ -22,6 +22,7 @@ const serviceJsonLd = {
   name: "Bảo dưỡng xe KIA tại Gò Vấp",
   provider: {
     "@type": "AutoDealer",
+    "@id": "https://www.kiagovaphcm.com/#dealer",
     name: "Showroom Ô Tô KIA Gò Vấp",
     address: {
       "@type": "PostalAddress",

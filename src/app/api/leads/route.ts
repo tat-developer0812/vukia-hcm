@@ -1,8 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
-import { findTodayLeadByPhoneOrEmail, insertLead, touchLead } from "@/lib/db";
+import { countRecentLeadsByIp, findTodayLeadByPhoneOrEmail, insertLead, touchLead } from "@/lib/db";
 import { sendLeadNotification } from "@/lib/email";
 
 export const runtime = "nodejs";
+
+// Rate-limit "lưới an toàn": chỉ chặn bot bắn dồn dập, ngưỡng cao để không cản khách thật
+// (nhiều người dùng mobile VN dùng chung IP qua CGNAT). Làm bằng code → hủy Pro vẫn hoạt động.
+const RATE_LIMIT_WINDOW_MINUTES = 10;
+const RATE_LIMIT_MAX_PER_IP = 20;
+
+function getClientIp(req: NextRequest): string | null {
+  const xff = req.headers.get("x-forwarded-for");
+  if (xff) return xff.split(",")[0].trim() || null;
+  return req.headers.get("x-real-ip");
+}
 
 interface LeadBody {
   name?: string;
@@ -39,8 +50,18 @@ export async function POST(req: NextRequest) {
 
   const cleanPhone = phone.trim().replace(/\s/g, "");
   const cleanEmail = email?.trim().toLowerCase() || undefined;
+  const ip = getClientIp(req);
 
   try {
+    // Lưới an toàn: nếu 1 IP gửi quá nhiều lead trong cửa sổ thời gian => coi là bot.
+    // Trả "thành công giả" giống honeypot: không lưu, không gửi mail, không lộ cho bot biết bị chặn.
+    if (ip) {
+      const recent = await countRecentLeadsByIp(ip, RATE_LIMIT_WINDOW_MINUTES);
+      if (recent >= RATE_LIMIT_MAX_PER_IP) {
+        return NextResponse.json({ status: "ok" }, { status: 200 });
+      }
+    }
+
     const existing = await findTodayLeadByPhoneOrEmail(cleanPhone, cleanEmail);
 
     if (existing) {
@@ -56,6 +77,7 @@ export async function POST(req: NextRequest) {
       note: note?.trim() || undefined,
       page,
       visitorId: visitorId?.trim()?.slice(0, 40) || undefined,
+      ip: ip ?? undefined,
     });
 
     sendLeadNotification({

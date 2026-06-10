@@ -15,6 +15,7 @@ export interface Lead {
   note: string | null;
   page: string | null;
   visitor_id: string | null;
+  ip: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -67,14 +68,27 @@ export async function insertLead(data: {
   note?: string;
   page?: string;
   visitorId?: string;
+  ip?: string;
 }): Promise<Lead> {
   const sql = getDb();
   const rows = await sql`
-    INSERT INTO leads (name, phone, email, car, note, page, visitor_id)
-    VALUES (${data.name}, ${data.phone}, ${data.email ?? null}, ${data.car ?? null}, ${data.note ?? null}, ${data.page ?? null}, ${data.visitorId ?? null})
+    INSERT INTO leads (name, phone, email, car, note, page, visitor_id, ip)
+    VALUES (${data.name}, ${data.phone}, ${data.email ?? null}, ${data.car ?? null}, ${data.note ?? null}, ${data.page ?? null}, ${data.visitorId ?? null}, ${data.ip ?? null})
     RETURNING *
   `;
   return rows[0] as Lead;
+}
+
+// Đếm số lead từ cùng 1 IP trong N phút gần đây — dùng cho rate-limit chống bot.
+// Ngưỡng cao + chạy bằng code nên không ảnh hưởng khách thật và không phụ thuộc gói Vercel.
+export async function countRecentLeadsByIp(ip: string, minutes: number): Promise<number> {
+  const sql = getDb();
+  const rows = await sql`
+    SELECT COUNT(*)::int AS cnt FROM leads
+    WHERE ip = ${ip}
+      AND created_at > NOW() - make_interval(mins => ${minutes})
+  `;
+  return (rows[0]?.cnt as number) ?? 0;
 }
 
 export async function touchLead(id: number): Promise<void> {

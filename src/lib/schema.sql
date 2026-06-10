@@ -18,6 +18,10 @@ CREATE INDEX IF NOT EXISTS leads_created_at_idx ON leads (created_at);
 ALTER TABLE leads ADD COLUMN IF NOT EXISTS visitor_id VARCHAR(40);
 CREATE INDEX IF NOT EXISTS leads_visitor_id_idx ON leads (visitor_id) WHERE visitor_id IS NOT NULL;
 
+-- Lưu IP để rate-limit chống bot bắn form dồn dập (làm bằng code, không phụ thuộc gói Vercel Pro)
+ALTER TABLE leads ADD COLUMN IF NOT EXISTS ip VARCHAR(45);
+CREATE INDEX IF NOT EXISTS leads_ip_created_at_idx ON leads (ip, created_at) WHERE ip IS NOT NULL;
+
 -- Nhật ký hành vi: mỗi click/pageview là 1 dòng, gắn theo visitor_id (ẩn danh trên trình duyệt)
 CREATE TABLE IF NOT EXISTS events (
   id         BIGSERIAL    PRIMARY KEY,

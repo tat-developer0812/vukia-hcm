@@ -18,6 +18,7 @@ export const metadata: Metadata = {
 const orgJsonLd = {
   "@context": "https://schema.org",
   "@type": ["AutoDealer", "LocalBusiness"],
+  "@id": "https://www.kiagovaphcm.com/#dealer",
   name: "Showroom Ô Tô KIA Gò Vấp",
   alternateName: ["Đại lý KIA Gò Vấp", "KIA Nguyễn Oanh", "Showroom KIA Gò Vấp"],
   description:
