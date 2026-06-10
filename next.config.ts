@@ -17,6 +17,10 @@ const nextConfig: NextConfig = {
         hostname: "res.cloudinary.com",
         pathname: "/tatdevweb/image/upload/**",
       },
+      {
+        protocol: "https",
+        hostname: "platform.cstatic-images.com",
+      },
     ],
   },
 };
