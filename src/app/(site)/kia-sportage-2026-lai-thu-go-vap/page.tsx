@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Phone, CheckCircle, Mountain, ShieldCheck, Gauge, ChevronRight } from "lucide-react";
 import QuoteForm from "@/components/QuoteForm";
 import { getCars, cleanCarName, parseVndPrice } from "@/lib/data";
@@ -187,6 +188,21 @@ export default async function SportageArticlePage() {
                 Đặt lịch online
               </a>
             </div>
+
+            {/* Ảnh xe Sportage – tăng độ uy tín cho landing */}
+            {sportage?.heroImage && (
+              <div className="relative w-full max-w-3xl mx-auto mt-10 aspect-[16/9]">
+                <Image
+                  src={sportage.heroImage}
+                  alt={`${sportageName} 2026 tại Kia Gò Vấp HCM`}
+                  fill
+                  sizes="(min-width: 768px) 768px, 100vw"
+                  className="object-contain drop-shadow-2xl"
+                  quality={90}
+                  preload
+                />
+              </div>
+            )}
           </div>
         </div>
 
