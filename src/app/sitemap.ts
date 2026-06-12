@@ -10,6 +10,7 @@ const STATIC_LAST_MODIFIED = {
   laithu: "2026-04-15",
   tragop: "2026-04-15",
   carnivalArticle: "2026-05-19",
+  sportageArticle: "2026-06-12",
   lienhe: "2026-01-10",
 } as const;
 
@@ -28,7 +29,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${baseUrl}/gioi-thieu-kia-go-vap`, lastModified: new Date(STATIC_LAST_MODIFIED.gioithieu), changeFrequency: "yearly", priority: 0.8 },
     { url: `${baseUrl}/dang-ky-lai-thu-xe-kia`, lastModified: new Date(STATIC_LAST_MODIFIED.laithu), changeFrequency: "monthly", priority: 0.7 },
     { url: `${baseUrl}/thu-tuc-tra-gop-xe-kia`, lastModified: new Date(STATIC_LAST_MODIFIED.tragop), changeFrequency: "monthly", priority: 0.7 },
-    { url: `${baseUrl}/kia-carnival-2026-lai-thu-go-vap`, lastModified: new Date(STATIC_LAST_MODIFIED.carnivalArticle), changeFrequency: "monthly", priority: 0.7 },
+    { url: `${baseUrl}/kia-sportage-2026-lai-thu-go-vap`, lastModified: new Date(STATIC_LAST_MODIFIED.sportageArticle), changeFrequency: "monthly", priority: 0.9 },
+    { url: `${baseUrl}/kia-carnival-2026-lai-thu-go-vap`, lastModified: new Date(STATIC_LAST_MODIFIED.carnivalArticle), changeFrequency: "monthly", priority: 0.5 },
     { url: `${baseUrl}/lien-he-kia-ho-chi-minh`, lastModified: new Date(STATIC_LAST_MODIFIED.lienhe), changeFrequency: "monthly", priority: 0.6 },
     ...carPages,
   ];

@@ -23,7 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Analytics />
         <SpeedInsights />
       </body>
-      {GA_ID && <GoogleAnalytics gaId={GA_ID} />}
+      {GA_ID && process.env.NODE_ENV === "production" && <GoogleAnalytics gaId={GA_ID} />}
     </html>
   );
 }

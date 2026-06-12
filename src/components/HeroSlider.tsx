@@ -51,6 +51,7 @@ export default function HeroSlider({ cars }: { cars: Car[] }) {
                 fill
                 sizes="(min-width: 1024px) 512px, (min-width: 640px) 384px, 90vw"
                 className="object-contain drop-shadow-2xl"
+                quality={90}
                 priority
               />
             </div>

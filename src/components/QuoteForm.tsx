@@ -99,6 +99,10 @@ export default function QuoteForm({
               type="text"
               placeholder="Họ và tên *"
               required
+              autoComplete="name"
+              data-lpignore="true"
+              data-1p-ignore="true"
+              data-form-type="other"
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
               className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#BB162B] focus:ring-2 focus:ring-red-100 transition"
@@ -111,6 +115,10 @@ export default function QuoteForm({
               type="tel"
               placeholder="Số điện thoại *"
               required
+              autoComplete="tel"
+              data-lpignore="true"
+              data-1p-ignore="true"
+              data-form-type="other"
               value={form.phone}
               onChange={(e) => setForm({ ...form, phone: e.target.value })}
               className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#BB162B] focus:ring-2 focus:ring-red-100 transition"
@@ -122,6 +130,10 @@ export default function QuoteForm({
               id="quote-email"
               type="email"
               placeholder="Email (tùy chọn)"
+              autoComplete="email"
+              data-lpignore="true"
+              data-1p-ignore="true"
+              data-form-type="other"
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
               className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#BB162B] focus:ring-2 focus:ring-red-100 transition"

@@ -64,6 +64,9 @@ export default async function HomePage() {
           <a href="tel:0931456204" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
             <Phone size={15} /> Gọi ngay: 0931.456.204
           </a>
+          <Link href="/kia-sportage-2026-lai-thu-go-vap" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+            <Star size={15} /> Kia Sportage 2026 – Giá &amp; lái thử Gò Vấp
+          </Link>
           <Link href="/dang-ky-lai-thu-xe-kia" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
             <Star size={15} /> Đăng ký lái thử miễn phí
           </Link>
@@ -117,6 +120,7 @@ export default async function HomePage() {
                     fill
                     sizes="(min-width: 1024px) 33vw, 50vw"
                     className="object-contain p-3 group-hover:scale-105 transition-transform duration-500"
+                    quality={90}
                   />
                   <span className="absolute top-2 left-2 sm:top-3 sm:left-3 bg-[#05141F] text-white text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full font-medium">
                     {car.category === "suv" ? "SUV" : car.category === "sedan" ? "Sedan" : car.category === "mpv" ? "MPV" : "Hatchback"}

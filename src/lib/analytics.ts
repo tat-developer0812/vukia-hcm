@@ -2,10 +2,16 @@ import { track } from "@vercel/analytics";
 import { sendGAEvent } from "@next/third-parties/google";
 import { getVisitorId } from "./visitor";
 
+// Chỉ bắn analytics khi đã deploy (production). `next dev` ở localhost có
+// NODE_ENV='development' => không gửi gì, tránh làm bẩn GA4 + DB thật bằng dữ liệu test.
+const TRACKING_ENABLED = process.env.NODE_ENV === "production";
+
 export const trackEvent = (
   name: string,
   props?: Record<string, string>
 ) => {
+  if (!TRACKING_ENABLED) return;
+
   // 1) Vercel Analytics
   track(name, props);
 
@@ -48,6 +54,7 @@ export const trackEvent = (
 // Ghi pageview CHỈ vào DB (GA4 đã tự đếm page_view, không gửi để tránh trùng).
 export const trackPageView = (path: string) => {
   if (typeof window === "undefined") return;
+  if (!TRACKING_ENABLED) return;
   try {
     const payload = JSON.stringify({
       visitorId: getVisitorId(),
