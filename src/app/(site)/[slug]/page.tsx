@@ -148,6 +148,7 @@ export default async function CarPage({ params }: { params: Promise<{ slug: stri
                     fill
                     sizes="(min-width: 1024px) 50vw, (min-width: 768px) 50vw, 100vw"
                     className="object-contain drop-shadow-2xl"
+                    quality={90}
                     priority
                   />
                 </div>
